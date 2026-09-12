@@ -156,6 +156,31 @@ test('store button chooses Android, Apple mobile and desktop destinations', () =
   assert.equal(resolvedStoreUrl({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }), '/');
 });
 
+test('Vercel entry exports a request handler without starting a listener', async () => {
+  const handler = require('../api');
+  assert.equal(typeof handler, 'function');
+
+  const result = await new Promise((resolve, reject) => {
+    let status;
+    let headers;
+    const response = {
+      writeHead(nextStatus, nextHeaders) {
+        status = nextStatus;
+        headers = nextHeaders;
+      },
+      end(body) {
+        resolve({ status, headers, body: String(body || '') });
+      },
+    };
+
+    Promise.resolve(handler({ method: 'GET', url: '/health' }, response)).catch(reject);
+  });
+
+  assert.equal(result.status, 200);
+  assert.equal(result.headers['Content-Type'], 'application/json; charset=utf-8');
+  assert.equal(result.body, '{"status":"ok"}');
+});
+
 let apiServer;
 let publicServer;
 let apiBaseUrl;

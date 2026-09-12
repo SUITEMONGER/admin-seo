@@ -41,7 +41,7 @@ Production defaults to `https://api.suitemonger.com/api/v1` and `https://suitemo
 
 ## Routes
 
-- `/` serves the SuiteMonger landing page from `landing/build/index.html`.
+- `/` serves the SuiteMonger landing page from `src/landing/index.html`.
 - `/suites` lists recently approved suites with crawlable links.
 - `/suites?page={page}` paginates approved listings from newest to oldest, with crawlable previous and next links.
 - `/suites/{category}/{name-and-address}--{id}` renders a listing.
@@ -55,7 +55,11 @@ Production defaults to `https://api.suitemonger.com/api/v1` and `https://suitemo
 
 Listing pages show every available sublisting returned in `sub_category` as a compact horizontal carousel of clickable cards. Each card includes its cover image, price, room details and amenities and opens the sublisting's permanent page. Main-listing and sublisting images are combined into a styled modal gallery with previous and next controls, an image counter and a selectable thumbnail rail.
 
-Route the public domain to this Node process through the production reverse proxy. Set `PUBLIC_BASE_URL` to the exact public origin so canonical tags and sitemap URLs agree.
+## Deploy on Vercel
+
+Connect the `suitemonger_seo` repository and leave **Root Directory** as `./`. The checked-in `vercel.json` packages the landing and public assets and routes every public URL through `api/index.js`; no build command or output directory is required.
+
+Set `API_BASE_URL`, `PUBLIC_BASE_URL`, `APPLE_STORE_URL`, and `GOOGLE_PLAY_STORE_URL` in the Vercel project's environment variables, then redeploy. Set `PUBLIC_BASE_URL` to the exact public origin so canonical tags and sitemap URLs agree.
 
 ## Verify
 

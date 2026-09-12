@@ -22,7 +22,7 @@ const {
 } = require('./src/render');
 
 const ROOT = __dirname;
-const LANDING_BUILD = path.join(ROOT, 'landing', 'build');
+const LANDING_ROOT = path.join(ROOT, 'src', 'landing');
 const DEFAULT_API_BASE_URL = 'https://api.suitemonger.com/api/v1';
 const DEFAULT_PUBLIC_BASE_URL = 'https://suitemonger.com';
 
@@ -96,10 +96,10 @@ ${locations.map((location) => `  <sitemap><loc>${escapeXml(location)}</loc></sit
 </sitemapindex>`;
 }
 
-function createServer(overrides = {}) {
+function createRequestHandler(overrides = {}) {
   const config = appConfig(overrides);
 
-  return http.createServer(async (request, response) => {
+  return async function requestHandler(request, response) {
     const method = request.method || 'GET';
     if (method !== 'GET' && method !== 'HEAD') {
       send(response, method, 405, 'Method not allowed', { Allow: 'GET, HEAD', ...securityHeaders('text/plain; charset=utf-8', 'no-store') });
@@ -116,15 +116,15 @@ function createServer(overrides = {}) {
       }
 
       if (pathname === '/') {
-        const html = await readFile(path.join(LANDING_BUILD, 'index.html'));
+        const html = await readFile(path.join(LANDING_ROOT, 'index.html'));
         send(response, method, 200, html, securityHeaders('text/html; charset=utf-8'));
         return;
       }
 
       if (pathname.startsWith('/landing/')) {
         const relativePath = pathname.slice('/landing/'.length);
-        const landingRoot = `${path.resolve(LANDING_BUILD)}${path.sep}`;
-        const assetPath = path.resolve(LANDING_BUILD, relativePath);
+        const landingRoot = `${path.resolve(LANDING_ROOT)}${path.sep}`;
+        const assetPath = path.resolve(LANDING_ROOT, relativePath);
         if (!assetPath.toLowerCase().startsWith(landingRoot.toLowerCase())) {
           throw new ApiError('Landing asset not found', 404);
         }
@@ -270,7 +270,11 @@ function createServer(overrides = {}) {
         ...securityHeaders('text/html; charset=utf-8', 'no-store'),
       });
     }
-  });
+  };
+}
+
+function createServer(overrides = {}) {
+  return http.createServer(createRequestHandler(overrides));
 }
 
 if (require.main === module) {
@@ -280,4 +284,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { createServer, sitemapIndex, sitemapUrlSet };
+module.exports = { createRequestHandler, createServer, sitemapIndex, sitemapUrlSet };

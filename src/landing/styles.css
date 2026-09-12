@@ -1,0 +1,57 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:#0B0B0D;
+  font-family:'Plus Jakarta Sans', system-ui, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  color:#F4F4F3;
+  overflow-x:hidden;
+  position:relative;
+  --accent:#FF3B2E;
+  --glow:1;
+}
+::selection { background:#FF3B2E; color:#fff; }
+input::placeholder { color:#6A6A70; }
+
+@keyframes floaty { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-14px); } }
+@keyframes pulseGlow { 0%,100%{ opacity:.55; } 50%{ opacity:.9; } }
+@keyframes marquee { from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+/* ===== Responsive ===== */
+@media (max-width: 980px) {
+  .sm-hero { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .sm-fees { grid-template-columns: 1fr !important; gap: 36px !important; padding: 36px !important; }
+  .sm-grid4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .sm-grid3 { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 700px) {
+  h1 { font-size: 42px !important; line-height: 1.03 !important; }
+  h2 { font-size: 30px !important; }
+  h3 { font-size: 24px !important; }
+  .sm-navlinks { gap: 0 !important; }
+  .sm-navlinks a { display: none !important; }
+  .sm-navlinks a.sm-cta { display: inline-block !important; }
+  .sm-grid4, .sm-grid3 { grid-template-columns: 1fr !important; }
+  .sm-search { flex-direction: column !important; align-items: stretch !important; }
+  .sm-search > div { border-right: none !important; }
+  .sm-search > a { padding: 14px !important; }
+  .sm-herocta { flex-wrap: wrap !important; gap: 14px !important; }
+  .sm-panel { padding: 32px 22px !important; }
+  .sm-waitform { flex-direction: column !important; }
+  nav, section, header, footer > div { padding-left: 18px !important; padding-right: 18px !important; }
+}
+@media (max-width: 420px) {
+  h1 { font-size: 34px !important; }
+  h2 { font-size: 27px !important; }
+}
+.logo-main{
+  width: 40px;
+  height:40px;
+  object-fit: contain;
+
+}
+.logomain_bg{
+  background-color: white;
+  padding: 6px;
+  border-radius: 10px;
+}

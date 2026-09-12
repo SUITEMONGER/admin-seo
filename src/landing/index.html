@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SuiteMonger — The rent racket ends here.</title>
+<meta name="description" content="SuiteMonger is the trust layer for renting homes and booking hotels & shortlets globally. Capped fees, verified listings, and a transparent record everyone can see.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/landing/styles.css">
+<link rel="icon" type="image/svg+xml" href="/landing/assets/SM_Favicon.svg">
+</head>
+<body>
+
+<div style="--accent:#FF3B2E; --glow:1; background:#0B0B0D; color:#F4F4F3; font-family:'Plus Jakarta Sans',system-ui,sans-serif; overflow-x:hidden; position:relative;">
+
+  <!-- ===== NAV ===== -->
+  <nav style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:18px 40px; background:rgba(11,11,13,0.72); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.07);">
+    <a href="#top" style="display:flex; align-items:center; gap:11px; text-decoration:none;">
+      <div class="logomain_bg">
+        <img src="/landing/assets/SM_logo.svg" alt="" class="logo-main">
+      </div>
+      <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.02em; color:#fff;">Suite<span style="color:var(--accent,#FF3B2E);">Monger</span></span>
+    </a>
+    <div class="sm-navlinks" style="display:flex; align-items:center; gap:32px;">
+      <a href="#problem" style="display:none; color:#A2A2A8; text-decoration:none; font-size:14.5px; font-weight:500;">The Problem</a>
+      <a href="#how" style="color:#A2A2A8; text-decoration:none; font-size:14.5px; font-weight:500;">How it works</a>
+      <a href="#fees" style="color:#A2A2A8; text-decoration:none; font-size:14.5px; font-weight:500;">Fees</a>
+      <a href="#trust" style="color:#A2A2A8; text-decoration:none; font-size:14.5px; font-weight:500;">Trust</a>
+      <a href="#faq" style="color:#A2A2A8; text-decoration:none; font-size:14.5px; font-weight:500;">FAQ</a>
+      <a href="/suites" style="color:#A2A2A8; text-decoration:none; font-size:14.5px; font-weight:500;">Browse suites</a>
+      <a href="#waitlist" class="sm-cta" style="padding:10px 20px; border-radius:10px; background:#fff; color:#0B0B0D; text-decoration:none; font-size:14.5px; font-weight:700; white-space:nowrap;">Get early access</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header id="top" style="position:relative; padding:72px 40px 40px;">
+    <div aria-hidden="true" style="position:absolute; top:-120px; left:-100px; width:560px; height:560px; border-radius:50%; background:radial-gradient(circle, rgba(255,59,46,0.30), transparent 65%); filter:blur(20px); opacity:var(--glow,1); animation:pulseGlow 6s ease-in-out infinite; pointer-events:none;"></div>
+    <div class="sm-hero" style="position:relative; max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.15fr 0.85fr; gap:48px; align-items:center;">
+      <div>
+        <div style="display:inline-flex; align-items:center; gap:9px; padding:7px 14px; border-radius:100px; border:1px solid rgba(255,59,46,0.35); background:rgba(255,59,46,0.08); font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#FF8C82; margin-bottom:26px;">
+          <span style="width:7px; height:7px; border-radius:50%; background:var(--accent,#FF3B2E); box-shadow:0 0 10px var(--accent,#FF3B2E);"></span>
+          RENTAL &amp; BOOKING INFRASTRUCTURE
+        </div>
+        <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:68px; line-height:0.98; letter-spacing:-0.03em; color:#fff; text-wrap:balance;">
+          The rent racket<br>ends <span style="color:var(--accent,#FF3B2E);">here.</span>
+        </h1>
+        <p style="margin-top:24px; max-width:520px; font-size:18px; line-height:1.55; color:#B6B6BC;">
+          SuiteMonger is the trust layer for renting homes and booking hotels &amp; shortlets globally. <strong style="color:#EDEDED; font-weight:600;">Capped fees, verified listings, and a transparent record</strong> every guest, tenant, owner and honest agent can see.
+        </p>
+
+        <!-- search bar -->
+        <div class="sm-search" style="margin-top:30px; display:flex; align-items:center; gap:8px; padding:8px; max-width:560px; background:#151517; border:1px solid rgba(255,255,255,0.08); border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+          <div style="flex:1; display:flex; flex-direction:column; padding:6px 14px; border-right:1px solid rgba(255,255,255,0.07);">
+            <span style="font-size:10.5px; font-weight:700; letter-spacing:0.06em; color:#7E7E85; text-transform:uppercase;">Location</span>
+            <input type="text" placeholder="Lekki, Lagos" style="margin-top:3px; background:none; border:none; outline:none; color:#fff; font-family:inherit; font-size:15px; font-weight:600; width:100%;">
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; padding:6px 14px;">
+            <span style="font-size:10.5px; font-weight:700; letter-spacing:0.06em; color:#7E7E85; text-transform:uppercase;">Property type</span>
+            <input type="text" placeholder="2-bedroom apartment" style="margin-top:3px; background:none; border:none; outline:none; color:#fff; font-family:inherit; font-size:15px; font-weight:600; width:100%;">
+          </div>
+          <a href="/suites" style="display:grid; place-items:center; padding:0 22px; align-self:stretch; border-radius:11px; background:linear-gradient(135deg,var(--accent,#FF3B2E),#D81E12); color:#fff; text-decoration:none; font-size:15px; font-weight:700; box-shadow:0 8px 20px rgba(255,59,46,0.38);">Search</a>
+        </div>
+
+        <div class="sm-herocta" style="margin-top:26px; display:flex; align-items:center; gap:22px;">
+          <a href="#waitlist" style="padding:14px 26px; border-radius:12px; background:#fff; color:#0B0B0D; text-decoration:none; font-size:15.5px; font-weight:700;" onclick="setRole('user')">Join the waitlist</a>
+          <a href="#waitlist" style="color:#D9D9DD; text-decoration:none; font-size:15.5px; font-weight:600; border-bottom:1.5px solid rgba(255,255,255,0.25); padding-bottom:2px;" onclick="setRole('partner')">List your property →</a>
+        </div>
+
+        <div style="margin-top:30px; display:flex; align-items:center; gap:12px; color:#8E8E95; font-size:14px;">
+          <div style="display:flex;">
+            <span style="width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#34D17A,#1f8a50); border:2px solid #0B0B0D;"></span>
+            <span style="width:30px; height:30px; border-radius:50%; margin-left:-10px; background:linear-gradient(135deg,#FF9A3C,#c96a18); border:2px solid #0B0B0D;"></span>
+            <span style="width:30px; height:30px; border-radius:50%; margin-left:-10px; background:linear-gradient(135deg,#45C2DA,#2380a0); border:2px solid #0B0B0D;"></span>
+            <span style="width:30px; height:30px; border-radius:50%; margin-left:-10px; background:linear-gradient(135deg,var(--accent,#FF3B2E),#D81E12); border:2px solid #0B0B0D;"></span>
+          </div>
+          <span><strong style="color:#fff; font-weight:700;">2,400+</strong> already on the waitlist</span>
+        </div>
+      </div>
+
+      <!-- hero product shot -->
+      <div style="position:relative; display:grid; place-items:center;">
+        <div aria-hidden="true" style="position:absolute; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle, rgba(255,59,46,0.28), transparent 70%); filter:blur(10px); opacity:var(--glow,1);"></div>
+        <div style="position:relative; animation:floaty 7s ease-in-out infinite;">
+          <img src="/landing/assets/hero-app.png" alt="SuiteMonger app" style="width:100%; max-width:340px; display:block; border-radius:22px; filter:drop-shadow(0 40px 70px rgba(0,0,0,0.6));">
+        </div>
+        <div style="position:absolute; bottom:36px; left:-10px; display:flex; align-items:center; gap:10px; padding:11px 16px; background:rgba(21,21,23,0.92); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.1); border-radius:13px; box-shadow:0 14px 34px rgba(0,0,0,0.5);">
+          <span style="display:grid; place-items:center; width:30px; height:30px; border-radius:8px; background:rgba(52,209,122,0.16); color:#34D17A; font-weight:800;">✓</span>
+          <div style="line-height:1.2;"><div style="font-size:13.5px; font-weight:700; color:#fff;">Fee capped at 5%</div><div style="font-size:11.5px; color:#8E8E95;">Verified &amp; locked</div></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== LOGO / TRUST STRIP ===== -->
+  <div style="border-top:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.06); padding:20px 0; overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:54px; white-space:nowrap; width:max-content; animation:marquee 26s linear infinite; color:#6E6E75; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;">
+      <span>ESCROW-SECURED PAYMENTS</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>VERIFIED LISTINGS</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>CAPPED, VISIBLE FEES</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>EVIDENCE-BASED DISPUTES</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>FULL AUDIT TRAIL</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>ESCROW-SECURED PAYMENTS</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>VERIFIED LISTINGS</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>CAPPED, VISIBLE FEES</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>EVIDENCE-BASED DISPUTES</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+      <span>FULL AUDIT TRAIL</span><span style="color:var(--accent,#FF3B2E);">◆</span>
+    </div>
+  </div>
+
+  <!-- ===== SCOPE / WHAT YOU CAN BOOK ===== -->
+  <section id="scope" style="max-width:1240px; margin:0 auto; padding:96px 40px 10px;">
+    <div style="text-align:center; max-width:720px; margin:0 auto;">
+      <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">One app for every stay</div>
+      <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:40px; line-height:1.08; letter-spacing:-0.025em; color:#fff; text-wrap:balance;">Rent a home. Book a hotel. Reserve a shortlet.</h2>
+      <p style="margin-top:16px; font-size:16.5px; line-height:1.55; color:#9C9CA3;">Whatever you're booking, the same promise holds: verified listings, fees you can see, and payments held safely until you're checked in.</p>
+    </div>
+    <div class="sm-grid4" style="margin-top:38px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+      <div style="padding:26px 22px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:44px; height:44px; border-radius:12px; background:rgba(255,59,46,0.12); color:var(--accent,#FF3B2E); font-size:20px;">⌂</div>
+        <div style="margin-top:16px; font-size:17px; font-weight:700; color:#fff;">Homes to rent</div>
+        <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">Long-term rentals without the inspection-fee runaround.</p>
+      </div>
+      <div style="padding:26px 22px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:44px; height:44px; border-radius:12px; background:rgba(69,194,218,0.14); color:#45C2DA; font-size:20px;">☗</div>
+        <div style="margin-top:16px; font-size:17px; font-weight:700; color:#fff;">Hotels</div>
+        <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">Real-time rooms from verified hotels, paid safely in-app.</p>
+      </div>
+      <div style="padding:26px 22px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:44px; height:44px; border-radius:12px; background:rgba(52,209,122,0.14); color:#34D17A; font-size:20px;">✦</div>
+        <div style="margin-top:16px; font-size:17px; font-weight:700; color:#fff;">Shortlets</div>
+        <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">Short stays you can trust, no surprises at the door.</p>
+      </div>
+      <div style="padding:26px 22px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px; position:relative;">
+        <div style="position:absolute; top:16px; right:16px; font-size:10px; font-weight:700; letter-spacing:0.06em; color:#FF9A3C; background:rgba(255,154,60,0.14); padding:4px 8px; border-radius:6px;">SOON</div>
+        <div style="display:grid; place-items:center; width:44px; height:44px; border-radius:12px; background:rgba(255,154,60,0.14); color:#FF9A3C; font-size:20px;">⚘</div>
+        <div style="margin-top:16px; font-size:17px; font-weight:700; color:#fff;">Services</div>
+        <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">Car hire, cleaning, spas &amp; more, added to your stay.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEM ===== -->
+  <section id="problem" style="max-width:1240px; margin:0 auto; padding:96px 40px 30px;">
+    <div style="max-width:760px;">
+      <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">The problem</div>
+      <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; line-height:1.05; letter-spacing:-0.025em; color:#fff; text-wrap:balance;">For too long, renting has run in the dark.</h2>
+      <p style="margin-top:18px; font-size:17.5px; line-height:1.55; color:#9C9CA3;">Renting shouldn't feel like a shakedown, anywhere. But it does, because nobody can see what anybody else is actually charging. We're not against agents; we're against the guesswork.</p>
+    </div>
+    <div class="sm-grid3" style="margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <div style="padding:26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:38px; height:38px; border-radius:10px; background:rgba(255,59,46,0.12); color:var(--accent,#FF3B2E); font-size:18px; font-weight:800; margin-bottom:18px;">✕</div>
+        <div style="font-size:17px; font-weight:700; color:#fff; margin-bottom:8px;">Inspection fees for nothing</div>
+        <p style="font-size:14.5px; line-height:1.55; color:#92929A;">Charged just to be shown a house, over and over, with no rental to show for it.</p>
+      </div>
+      <div style="padding:26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:38px; height:38px; border-radius:10px; background:rgba(255,59,46,0.12); color:var(--accent,#FF3B2E); font-size:18px; font-weight:800; margin-bottom:18px;">✕</div>
+        <div style="font-size:17px; font-weight:700; color:#fff; margin-bottom:8px;">Fees charged without consent</div>
+        <p style="font-size:14.5px; line-height:1.55; color:#92929A;">Outrageous cuts collected from tenants, often without the landlord ever agreeing to it.</p>
+      </div>
+      <div style="padding:26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:38px; height:38px; border-radius:10px; background:rgba(255,59,46,0.12); color:var(--accent,#FF3B2E); font-size:18px; font-weight:800; margin-bottom:18px;">✕</div>
+        <div style="font-size:17px; font-weight:700; color:#fff; margin-bottom:8px;">Landlords getting shortchanged</div>
+        <p style="font-size:14.5px; line-height:1.55; color:#92929A;">Milked with less-than-ideal rent while being pushed toward the highest bidder, not the right tenant.</p>
+      </div>
+      <div style="padding:26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:38px; height:38px; border-radius:10px; background:rgba(255,59,46,0.12); color:var(--accent,#FF3B2E); font-size:18px; font-weight:800; margin-bottom:18px;">✕</div>
+        <div style="font-size:17px; font-weight:700; color:#fff; margin-bottom:8px;">Hidden, invented charges</div>
+        <p style="font-size:14.5px; line-height:1.55; color:#92929A;">Legal, agreement, caution, line items nobody can verify, stacked on top of the rent.</p>
+      </div>
+      <div style="padding:26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:38px; height:38px; border-radius:10px; background:rgba(255,59,46,0.12); color:var(--accent,#FF3B2E); font-size:18px; font-weight:800; margin-bottom:18px;">✕</div>
+        <div style="font-size:17px; font-weight:700; color:#fff; margin-bottom:8px;">Abrupt, hostile quit notices</div>
+        <p style="font-size:14.5px; line-height:1.55; color:#92929A;">Tenants pushed out with little warning and no recourse, and no record of what happened.</p>
+      </div>
+      <div style="padding:26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="display:grid; place-items:center; width:38px; height:38px; border-radius:10px; background:rgba(255,59,46,0.12); color:var(--accent,#FF3B2E); font-size:18px; font-weight:800; margin-bottom:18px;">✕</div>
+        <div style="font-size:17px; font-weight:700; color:#fff; margin-bottom:8px;">No one to complain to</div>
+        <p style="font-size:14.5px; line-height:1.55; color:#92929A;">When something goes wrong, there's no neutral party, no evidence trail, and no resolution.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how" style="max-width:1240px; margin:0 auto; padding:100px 40px 30px;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <div style="max-width:680px;">
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">How SuiteMonger works</div>
+        <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; line-height:1.05; letter-spacing:-0.025em; color:#fff; text-wrap:balance;">One platform. Endless service</h2>
+      </div>
+      <p style="max-width:340px; font-size:16px; line-height:1.55; color:#9C9CA3;">Every search, fee and payment runs through SuiteMonger, so the same record is visible to everyone involved.</p>
+    </div>
+
+    <div class="sm-grid4" style="margin-top:46px; display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+      <div style="padding:30px 26px; background:linear-gradient(180deg,#161618,#121214); border:1px solid rgba(255,255,255,0.07); border-radius:20px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; color:rgba(255,255,255,0.13); line-height:1;">01</div>
+        <div style="margin-top:18px; font-size:18px; font-weight:700; color:#fff;">Search from anywhere</div>
+        <p style="margin-top:9px; font-size:14.5px; line-height:1.55; color:#92929A;">Browse verified homes and hotels across the globe, find the best rent without a single inspection fee.</p>
+      </div>
+      <div style="padding:30px 26px; background:linear-gradient(180deg,#161618,#121214); border:1px solid rgba(255,255,255,0.07); border-radius:20px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; color:rgba(255,255,255,0.13); line-height:1;">02</div>
+        <div style="margin-top:18px; font-size:18px; font-weight:700; color:#fff;">See every fee upfront</div>
+        <p style="margin-top:9px; font-size:14.5px; line-height:1.55; color:#92929A;">Every fee is capped and itemised. No hidden charges, what you see is the whole story.</p>
+      </div>
+      <div style="padding:30px 26px; background:linear-gradient(180deg,#161618,#121214); border:1px solid rgba(255,255,255,0.07); border-radius:20px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; color:rgba(255,255,255,0.13); line-height:1;">03</div>
+        <div style="margin-top:18px; font-size:18px; font-weight:700; color:#fff;">Book &amp; pay in-app</div>
+        <p style="margin-top:9px; font-size:14.5px; line-height:1.55; color:#92929A;">Payments are escrow-secured and every party gets a receipt. The landlord sees exactly what's charged.</p>
+      </div>
+      <div style="padding:30px 26px; background:linear-gradient(180deg,#161618,#121214); border:1px solid rgba(255,255,255,0.07); border-radius:20px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; color:var(--accent,#FF3B2E); line-height:1;">04</div>
+        <div style="margin-top:18px; font-size:18px; font-weight:700; color:#fff;">Stay protected</div>
+        <p style="margin-top:9px; font-size:14.5px; line-height:1.55; color:#92929A;">Raise a complaint with evidence and get a prompt response, backed by a full audit trail.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEE CAP INTERACTIVE ===== -->
+  <section id="fees" style="padding:100px 40px 30px;">
+    <div class="sm-fees" style="max-width:1240px; margin:0 auto; background:linear-gradient(150deg,#17171A,#101012); border:1px solid rgba(255,255,255,0.08); border-radius:28px; padding:56px; display:grid; grid-template-columns:0.9fr 1.1fr; gap:54px; align-items:center;">
+      <div>
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">Transparent fee cap</div>
+        <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:42px; line-height:1.06; letter-spacing:-0.025em; color:#fff;">Fees you can actually see, and a limit they can't cross.</h2>
+        <p style="margin-top:18px; font-size:16.5px; line-height:1.55; color:#9C9CA3;">The old way stacks around <strong style="color:#fff;">20%</strong> in fees you can't verify. SuiteMonger caps the total at <strong style="color:#fff;">5%</strong>, and shows it to everyone on the deal.</p>
+        <a href="#waitlist" style="display:inline-block; margin-top:26px; padding:14px 26px; border-radius:12px; background:linear-gradient(135deg,var(--accent,#FF3B2E),#D81E12); color:#fff; text-decoration:none; font-size:15.5px; font-weight:700; box-shadow:0 10px 26px rgba(255,59,46,0.34);" onclick="setRole('user')">Lock in a fair fee</a>
+      </div>
+
+      <div style="background:#0E0E10; border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:34px;">
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.05em; color:#7E7E85; text-transform:uppercase;">Share of your rent taken in fees</div>
+
+        <div style="margin-top:26px; display:grid; gap:18px;">
+          <div>
+            <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:9px;">
+              <span style="font-size:14px; color:#A2A2A8;">The old way</span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:#FF8C82;">~20%</span>
+            </div>
+            <div style="height:14px; border-radius:8px; background:#2A2A2E; overflow:hidden;"><div style="height:100%; width:100%; border-radius:8px; background:linear-gradient(90deg,#FF3B2E,#FF8C82);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:9px;">
+              <span style="font-size:14px; color:#A2A2A8;">SuiteMonger cap</span>
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:#34D17A;">5%</span>
+            </div>
+            <div style="height:14px; border-radius:8px; background:#2A2A2E; overflow:hidden;"><div style="height:100%; width:25%; border-radius:8px; background:linear-gradient(90deg,#1f8a50,#34D17A);"></div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:26px; display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-radius:13px; background:#fff;">
+          <span style="font-size:14px; font-weight:700; color:#0B0B0D;">Up to</span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:24px; color:#0B0B0D;">75% lower fees</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TENANTS / LANDLORDS SPLIT ===== -->
+  <section id="split" style="max-width:1240px; margin:0 auto; padding:100px 40px 30px;">
+    <div class="sm-grid3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <div style="padding:40px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:22px;">
+        <div style="display:inline-flex; padding:6px 13px; border-radius:8px; background:rgba(69,194,218,0.14); color:#45C2DA; font-size:12.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;">For guests &amp; tenants</div>
+        <h3 style="margin-top:20px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px; line-height:1.1; color:#fff;">HOME AWAY FROM HOME, MAKE EVERY STAY HOMILY WITH ALL SERVICES AVAILABLE.</h3>
+        <div style="margin-top:24px; display:grid; gap:14px;">
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(69,194,218,0.16); color:#45C2DA; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">Search verified homes, hotels &amp; shortlets remotely, no paying just to look.</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(69,194,218,0.16); color:#45C2DA; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">Every fee shown before you commit, capped, never hidden.</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(69,194,218,0.16); color:#45C2DA; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">Payment held safely until you're checked in, raise issues with evidence anytime.</span></div>
+        </div>
+        <a href="#waitlist" style="display:inline-block; margin-top:28px; padding:13px 24px; border-radius:11px; background:#fff; color:#0B0B0D; text-decoration:none; font-size:15px; font-weight:700;" onclick="setRole('user')">Start booking</a>
+      </div>
+      <div style="padding:40px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:22px;">
+        <div style="display:inline-flex; padding:6px 13px; border-radius:8px; background:rgba(52,209,122,0.14); color:#34D17A; font-size:12.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;">For owners &amp; hosts</div>
+        <h3 style="margin-top:20px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px; line-height:1.1; color:#fff;">Fair payouts, the right guests, zero games.</h3>
+        <div style="margin-top:24px; display:grid; gap:14px;">
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(52,209,122,0.16); color:#34D17A; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">See exactly what's charged in your name, nothing without consent.</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(52,209,122,0.16); color:#34D17A; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">Receive the rent or rate you set, not a figure quietly trimmed by a middleman.</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(52,209,122,0.16); color:#34D17A; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">Match with guests and tenants on fit, not just who pays the most.</span></div>
+        </div>
+        <a href="#waitlist" style="display:inline-block; margin-top:28px; padding:13px 24px; border-radius:11px; background:#fff; color:#0B0B0D; text-decoration:none; font-size:15px; font-weight:700;" onclick="setRole('partner')">List with us</a>
+      </div>
+      <div style="padding:40px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:22px;">
+        <div style="display:inline-flex; padding:6px 13px; border-radius:8px; background:rgba(255,154,60,0.14); color:#FF9A3C; font-size:12.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;">For service providers</div>
+        <h3 style="margin-top:20px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px; line-height:1.1; color:#fff;">Turn every stay into extra business.</h3>
+        <div style="margin-top:24px; display:grid; gap:14px;">
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(255,154,60,0.16); color:#FF9A3C; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">List car hire, cleaning, spa and more, discovered by guests booking nearby.</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(255,154,60,0.16); color:#FF9A3C; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">Get paid on time, escrow-secured, with no chasing invoices.</span></div>
+          <div style="display:flex; gap:13px; align-items:flex-start;"><span style="flex:none; display:grid; place-items:center; width:22px; height:22px; border-radius:6px; background:rgba(255,154,60,0.16); color:#FF9A3C; font-size:12px; font-weight:800; margin-top:2px;">✓</span><span style="font-size:15px; line-height:1.5; color:#C2C2C8;">Build a reputation that brings repeat bookings, not one-off gigs.</span></div>
+        </div>
+        <a href="#waitlist" style="display:inline-block; margin-top:28px; padding:13px 24px; border-radius:11px; background:#fff; color:#0B0B0D; text-decoration:none; font-size:15px; font-weight:700;" onclick="setRole('partner')">List a service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DISPUTES ===== -->
+  <section id="disputes" style="max-width:1240px; margin:0 auto; padding:100px 40px 30px;">
+    <div style="max-width:720px;">
+      <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">Disputes &amp; complaints</div>
+      <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; line-height:1.05; letter-spacing:-0.025em; color:#fff; text-wrap:balance;">Evidence in. Resolution out.</h2>
+      <p style="margin-top:18px; font-size:17.5px; line-height:1.55; color:#9C9CA3;">When something goes wrong, you're not on your own. File a complaint with proof and a neutral process takes it from there.</p>
+    </div>
+    <div class="sm-grid3" style="margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <div style="padding:30px 26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--accent,#FF3B2E);">STEP 1</div>
+        <div style="margin-top:14px; font-size:18px; font-weight:700; color:#fff;">Submit with evidence</div>
+        <p style="margin-top:9px; font-size:14.5px; line-height:1.55; color:#92929A;">Attach receipts, messages and photos. Your complaint is timestamped the moment you file it.</p>
+      </div>
+      <div style="padding:30px 26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--accent,#FF3B2E);">STEP 2</div>
+        <div style="margin-top:14px; font-size:18px; font-weight:700; color:#fff;">Reviewed against the record</div>
+        <p style="margin-top:9px; font-size:14.5px; line-height:1.55; color:#92929A;">Because every fee and payment lives on SuiteMonger, claims are checked against what actually happened.</p>
+      </div>
+      <div style="padding:30px 26px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--accent,#FF3B2E);">STEP 3</div>
+        <div style="margin-top:14px; font-size:18px; font-weight:700; color:#fff;">Resolved, promptly</div>
+        <p style="margin-top:9px; font-size:14.5px; line-height:1.55; color:#92929A;">You get a clear outcome and a paper trail, not silence and a slammed door.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST LAYER ===== -->
+  <section id="trust" style="max-width:1240px; margin:0 auto; padding:100px 40px 30px;">
+    <div class="sm-panel" style="background:linear-gradient(150deg,#17171A,#101012); border:1px solid rgba(255,255,255,0.08); border-radius:28px; padding:52px;">
+      <div style="max-width:680px;">
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">The trust layer</div>
+        <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:42px; line-height:1.05; letter-spacing:-0.025em; color:#fff;">Security isn't a feature. It's the foundation.</h2>
+      </div>
+      <div class="sm-grid4" style="margin-top:40px; display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+        <div style="padding:26px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px;">
+          <div style="display:grid; place-items:center; width:40px; height:40px; border-radius:11px; background:rgba(52,209,122,0.14); color:#34D17A; font-size:18px; font-weight:800;">✓</div>
+          <div style="margin-top:16px; font-size:16.5px; font-weight:700; color:#fff;">Escrow-secured payments</div>
+          <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">Money is held safely and released on agreed terms.</p>
+        </div>
+        <div style="padding:26px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px;">
+          <div style="display:grid; place-items:center; width:40px; height:40px; border-radius:11px; background:rgba(69,194,218,0.14); color:#45C2DA; font-size:18px; font-weight:800;">✓</div>
+          <div style="margin-top:16px; font-size:16.5px; font-weight:700; color:#fff;">Verified listings &amp; landlords</div>
+          <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">Real homes, real owners, vetted before they go live.</p>
+        </div>
+        <div style="padding:26px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px;">
+          <div style="display:grid; place-items:center; width:40px; height:40px; border-radius:11px; background:rgba(255,154,60,0.14); color:#FF9A3C; font-size:18px; font-weight:800;">✓</div>
+          <div style="margin-top:16px; font-size:16.5px; font-weight:700; color:#fff;">Capped, transparent fees</div>
+          <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">A hard ceiling, visible to every party on the deal.</p>
+        </div>
+        <div style="padding:26px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px;">
+          <div style="display:grid; place-items:center; width:40px; height:40px; border-radius:11px; background:rgba(255,59,46,0.14); color:var(--accent,#FF3B2E); font-size:18px; font-weight:800;">✓</div>
+          <div style="margin-top:16px; font-size:16.5px; font-weight:700; color:#fff;">Full audit trail</div>
+          <p style="margin-top:7px; font-size:13.5px; line-height:1.5; color:#8E8E95;">Every action recorded, the receipt for the whole journey.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section id="stories" style="max-width:1240px; margin:0 auto; padding:100px 40px 30px;">
+    <div style="max-width:680px;">
+      <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">Early voices</div>
+      <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:46px; line-height:1.05; letter-spacing:-0.025em; color:#fff;">People are tired of the old way.</h2>
+    </div>
+    <div class="sm-grid3" style="margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <div style="padding:30px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <p style="font-size:16px; line-height:1.6; color:#DCDCE0;">"I paid three different agents inspection fees and still didn't get a flat. If SuiteMonger means I never do that again, I'm in."</p>
+        <div style="margin-top:22px; display:flex; align-items:center; gap:12px;">
+          <span style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#45C2DA,#2380a0);"></span>
+          <div><div style="font-size:14.5px; font-weight:700; color:#fff;">Chidinma O.</div><div style="font-size:12.5px; color:#8E8E95;">Tenant · Lagos</div></div>
+        </div>
+      </div>
+      <div style="padding:30px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <p style="font-size:16px; line-height:1.6; color:#DCDCE0;">"As a landlord I never knew what tenants were actually being charged. Seeing it all in one place changes everything."</p>
+        <div style="margin-top:22px; display:flex; align-items:center; gap:12px;">
+          <span style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#34D17A,#1f8a50);"></span>
+          <div><div style="font-size:14.5px; font-weight:700; color:#fff;">Musa A.</div><div style="font-size:12.5px; color:#8E8E95;">Landlord · Abuja</div></div>
+        </div>
+      </div>
+      <div style="padding:30px; background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:18px;">
+        <p style="font-size:16px; line-height:1.6; color:#DCDCE0;">"A capped fee I can actually see before paying? That's the whole reason I joined the waitlist."</p>
+        <div style="margin-top:22px; display:flex; align-items:center; gap:12px;">
+          <span style="width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#FF9A3C,#c96a18);"></span>
+          <div><div style="font-size:14.5px; font-weight:700; color:#fff;">Blessing E.</div><div style="font-size:12.5px; color:#8E8E95;">Tenant · Port Harcourt</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WAITLIST ===== -->
+  <section id="waitlist" style="padding:100px 40px 30px;">
+    <div class="sm-panel" style="position:relative; max-width:1000px; margin:0 auto; background:linear-gradient(150deg,#1d0f0e,#120a0a); border:1px solid rgba(255,59,46,0.25); border-radius:28px; padding:64px 56px; text-align:center; overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute; top:-140px; left:50%; transform:translateX(-50%); width:520px; height:320px; background:radial-gradient(circle, rgba(255,59,46,0.30), transparent 68%); filter:blur(14px); opacity:var(--glow,1); pointer-events:none;"></div>
+      <div style="position:relative;">
+        <h2 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:48px; line-height:1.04; letter-spacing:-0.03em; color:#fff; text-wrap:balance;">Be first when SuiteMonger opens.</h2>
+        <p style="margin-top:18px; max-width:520px; margin-left:auto; margin-right:auto; font-size:17.5px; line-height:1.55; color:#C9B4B2;">Join the guests, tenants and owners building a fairer market. Early-access members get priority onboarding and locked-in fair fees.</p>
+
+        <div id="waitlist-form-wrap">
+          <div style="margin-top:30px; display:inline-flex; gap:6px; padding:5px; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.12); border-radius:12px;">
+            <button type="button" id="role-user-btn" onclick="setRole('user')" style="padding:10px 18px; border:none; border-radius:9px; background:#fff; color:#0B0B0D; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer;">User</button>
+            <button type="button" id="role-partner-btn" onclick="setRole('partner')" style="padding:10px 18px; border:none; border-radius:9px; background:transparent; color:#C9B4B2; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer;">Partner</button>
+          </div>
+          <form id="waitlist-form" onsubmit="return submitWaitlist(event)" class="sm-waitform" style="margin-top:16px; display:flex; gap:10px; max-width:480px; margin-left:auto; margin-right:auto;">
+            <input type="email" required id="waitlist-email" placeholder="you@email.com" style="flex:1; padding:16px 20px; border-radius:13px; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.14); outline:none; color:#fff; font-family:inherit; font-size:15.5px; font-weight:500;">
+            <button type="submit" id="waitlist-submit-btn" style="padding:16px 28px; border:none; border-radius:13px; background:#fff; color:#0B0B0D; font-family:inherit; font-size:15.5px; font-weight:700; cursor:pointer;">Join the waitlist</button>
+          </form>
+          <div id="waitlist-error" style="display:none; margin-top:14px; align-items:center; gap:9px; padding:12px 18px; border-radius:11px; background:rgba(255,59,46,0.1); border:1px solid rgba(255,59,46,0.32); font-size:13.5px; font-weight:600; color:#FF8C82;"></div>
+          <div style="margin-top:14px; font-size:13px; color:#9A8584;">No spam · we'll only email you about launch, tagged as <strong style="color:#C9B4B2; font-weight:700;" id="role-label">User</strong>.</div>
+        </div>
+        <div id="waitlist-success" style="display:none; margin-top:34px; align-items:center; gap:12px; padding:18px 28px; border-radius:14px; background:rgba(52,209,122,0.12); border:1px solid rgba(52,209,122,0.3);">
+          <span style="display:grid; place-items:center; width:30px; height:30px; border-radius:50%; background:#34D17A; color:#0B0B0D; font-weight:800;">✓</span>
+          <span style="font-size:16px; font-weight:600; color:#fff;" id="waitlist-success-msg">You're on the list.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" style="max-width:840px; margin:0 auto; padding:100px 40px 40px;">
+    <div style="text-align:center; margin-bottom:44px;">
+      <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; color:var(--accent,#FF3B2E); text-transform:uppercase;">FAQ</div>
+      <h2 style="margin-top:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:42px; line-height:1.05; letter-spacing:-0.025em; color:#fff;">Questions, answered.</h2>
+    </div>
+    <div style="display:grid; gap:12px;">
+      <div class="faq-item" style="background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:16px; overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 26px; background:none; border:none; cursor:pointer; text-align:left;">
+          <span style="font-size:17px; font-weight:700; color:#fff; font-family:'Plus Jakarta Sans',sans-serif;">How does SuiteMonger cap fees?</span>
+          <span class="faq-sign" style="flex:none; display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--accent,#FF3B2E); font-size:20px; font-weight:600; line-height:1;">−</span>
+        </button>
+        <div class="faq-answer" style="padding:0 26px 26px; font-size:15.5px; line-height:1.6; color:#9C9CA3;">Total fees on any rental are limited to 5% and shown to the tenant, landlord and agent before anyone pays. Nothing can be added quietly on the side, if it isn't on the platform, it isn't a legitimate charge.</div>
+      </div>
+      <div class="faq-item" style="background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:16px; overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 26px; background:none; border:none; cursor:pointer; text-align:left;">
+          <span style="font-size:17px; font-weight:700; color:#fff; font-family:'Plus Jakarta Sans',sans-serif;">Do I still pay an inspection fee to view a home?</span>
+          <span class="faq-sign" style="flex:none; display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--accent,#FF3B2E); font-size:20px; font-weight:600; line-height:1;">+</span>
+        </button>
+        <div class="faq-answer" style="display:none; padding:0 26px 26px; font-size:15.5px; line-height:1.6; color:#9C9CA3;">No. You browse verified listings remotely and only engage when you've found the right place. You never pay simply to be shown a house.</div>
+      </div>
+      <div class="faq-item" style="background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:16px; overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 26px; background:none; border:none; cursor:pointer; text-align:left;">
+          <span style="font-size:17px; font-weight:700; color:#fff; font-family:'Plus Jakarta Sans',sans-serif;">How are landlords protected?</span>
+          <span class="faq-sign" style="flex:none; display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--accent,#FF3B2E); font-size:20px; font-weight:600; line-height:1;">+</span>
+        </button>
+        <div class="faq-answer" style="display:none; padding:0 26px 26px; font-size:15.5px; line-height:1.6; color:#9C9CA3;">Landlords see exactly what is being charged in their name, receive the rent they set, and are matched with tenants on fit, not on who pays a middleman the most.</div>
+      </div>
+      <div class="faq-item" style="background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:16px; overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 26px; background:none; border:none; cursor:pointer; text-align:left;">
+          <span style="font-size:17px; font-weight:700; color:#fff; font-family:'Plus Jakarta Sans',sans-serif;">What happens if there's a dispute?</span>
+          <span class="faq-sign" style="flex:none; display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--accent,#FF3B2E); font-size:20px; font-weight:600; line-height:1;">+</span>
+        </button>
+        <div class="faq-answer" style="display:none; padding:0 26px 26px; font-size:15.5px; line-height:1.6; color:#9C9CA3;">File a complaint with evidence, receipts, messages, photos. Because every fee and payment is recorded on SuiteMonger, your claim is checked against what actually happened and resolved promptly.</div>
+      </div>
+      <div class="faq-item" style="background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:16px; overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 26px; background:none; border:none; cursor:pointer; text-align:left;">
+          <span style="font-size:17px; font-weight:700; color:#fff; font-family:'Plus Jakarta Sans',sans-serif;">Are my payments secure?</span>
+          <span class="faq-sign" style="flex:none; display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--accent,#FF3B2E); font-size:20px; font-weight:600; line-height:1;">+</span>
+        </button>
+        <div class="faq-answer" style="display:none; padding:0 26px 26px; font-size:15.5px; line-height:1.6; color:#9C9CA3;">Yes. Payments are escrow-secured: funds are held safely and released on agreed terms, with a receipt for every party and a full audit trail.</div>
+      </div>
+      <div class="faq-item" style="background:#141416; border:1px solid rgba(255,255,255,0.07); border-radius:16px; overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 26px; background:none; border:none; cursor:pointer; text-align:left;">
+          <span style="font-size:17px; font-weight:700; color:#fff; font-family:'Plus Jakarta Sans',sans-serif;">When does SuiteMonger launch?</span>
+          <span class="faq-sign" style="flex:none; display:grid; place-items:center; width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--accent,#FF3B2E); font-size:20px; font-weight:600; line-height:1;">+</span>
+        </button>
+        <div class="faq-answer" style="display:none; padding:0 26px 26px; font-size:15.5px; line-height:1.6; color:#9C9CA3;">We're rolling out in phases across markets worldwide. Join the waitlist for priority onboarding and locked-in fair fees when we open in your city.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="border-top:1px solid rgba(255,255,255,0.07); margin-top:60px;">
+    <div style="max-width:1240px; margin:0 auto; padding:48px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
+      <div style="display:flex; align-items:center; gap:11px;">
+        <div class="logomain_bg">
+          <img src="/landing/assets/SM_logo.svg" alt="" class="logo-main">
+        </div>
+        <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:#fff;">Suite<span style="color:var(--accent,#FF3B2E);">Monger</span></span>
+      </div>
+      <div style="font-size:14px; color:#76767D; max-width:420px;">Rental &amp; booking infrastructure with a built-in trust layer, for guests, tenants, owners, hosts and honest agents everywhere.</div>
+      <div style="display:flex; gap:26px;">
+        <a href="#how" style="color:#9C9CA3; text-decoration:none; font-size:14px; font-weight:500;">How it works</a>
+        <a href="#fees" style="color:#9C9CA3; text-decoration:none; font-size:14px; font-weight:500;">Fees</a>
+        <a href="#waitlist" style="color:#9C9CA3; text-decoration:none; font-size:14px; font-weight:500;">Waitlist</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.05);">
+      <div style="max-width:1240px; margin:0 auto; padding:22px 40px; font-size:13px; color:#5E5E64;">© 2026 SuiteMonger. Ending the rent racket, one transparent transaction at a time.</div>
+    </div>
+  </footer>
+
+</div>
+<script src="/landing/script.js"></script>
+</body>
+</html>
