@@ -1,0 +1,14 @@
+{
+  "name": "suitemonger-public-listings",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Server-rendered public pages for approved SuiteMonger listings.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  }
+}
