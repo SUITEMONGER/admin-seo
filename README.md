@@ -37,7 +37,7 @@ $env:GOOGLE_PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.
 npm start
 ```
 
-Production defaults to `https://api.suitemonger.com/api/v1` and `https://suitemonger.com`.
+Production defaults to `https://api.suitemonger.com/api/v1` and `https://www.suitemonger.com`.
 
 ## Routes
 
@@ -61,8 +61,12 @@ Connect the `suitemonger_seo` repository and leave **Root Directory** as `./`. T
 
 Set `API_BASE_URL`, `PUBLIC_BASE_URL`, `APPLE_STORE_URL`, and `GOOGLE_PLAY_STORE_URL` in the Vercel project's environment variables, then redeploy. Set `PUBLIC_BASE_URL` to the exact public origin so canonical tags and sitemap URLs agree.
 
+For listing app links, use `PUBLIC_BASE_URL=https://www.suitemonger.com`. The checked-in Android association uses the Play Console app-signing fingerprint supplied for `com.mobile.suitemonger`; override or extend it with `ANDROID_APP_SHA256` when the signing certificate changes (comma-separated fingerprints). The iOS association uses Apple Team ID `N5MP95N62Q`; override it with `APPLE_TEAM_ID` only if the signing team changes. Both `/.well-known/assetlinks.json` and `/.well-known/apple-app-site-association` must return `200` directly from `www.suitemonger.com`. The apex domain currently redirects to `www`, so shared links and native associations use `www`.
+
 ## Verify
 
 ```powershell
 npm test
 ```
+
+The implementation status and remaining backend/admin share work are documented in [`docs/deep-link-sharing-workflow.md`](docs/deep-link-sharing-workflow.md).

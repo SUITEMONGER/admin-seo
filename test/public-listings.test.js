@@ -100,6 +100,7 @@ test('listing page renders crawlable metadata and safely escapes listing content
   assert.match(html, /data-sublisting-list/);
   assert.match(html, /options\/executive-room--room-1/);
   assert.match(html, /All photos/);
+  assert.match(html, /data-open-app-path="\/suites\//);
   assert.match(html, /id="gallery-data"/);
   assert.match(html, /data-gallery-index="3"/);
   assert.match(html, /data-gallery-thumbnail-index="3"/);
@@ -156,6 +157,39 @@ test('store button chooses Android, Apple mobile and desktop destinations', () =
   assert.equal(resolvedStoreUrl({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }), '/');
 });
 
+test('listing app button opens the installed app and falls back to the store', () => {
+  const source = readFileSync(require.resolve('../public/store-redirect.js'), 'utf8');
+  const handlers = {};
+  const link = {
+    dataset: {
+      openAppPath: '/suites/apartment/example--listing-1',
+      fallbackUrl: '/',
+      googleStoreUrl: 'https://play.google.com/store/apps/details?id=example',
+    },
+    addEventListener(type, handler) { handlers[type] = handler; },
+    href: '',
+  };
+  const location = { href: '', assign(url) { this.href = url; } };
+  let timeout;
+  vm.runInNewContext(source, {
+    URL,
+    navigator: { userAgent: 'Android', platform: '', maxTouchPoints: 0 },
+    document: {
+      hidden: false,
+      querySelectorAll: (selector) => selector === '[data-open-app-path]' ? [link] : [],
+      addEventListener() {},
+      removeEventListener() {},
+    },
+    window: { location },
+    setTimeout(callback) { timeout = callback; return 1; },
+    clearTimeout() {},
+  });
+  handlers.click({ preventDefault() {} });
+  assert.equal(location.href, 'suitemonger://www.suitemonger.com/suites/apartment/example--listing-1');
+  timeout();
+  assert.equal(location.href, 'https://play.google.com/store/apps/details?id=example');
+});
+
 test('Vercel entry exports a request handler without starting a listener', async () => {
   const handler = require('../api');
   assert.equal(typeof handler, 'function');
@@ -209,6 +243,7 @@ before(async () => {
     publicBaseUrl: 'http://127.0.0.1',
     appleStoreUrl: 'https://apps.apple.com/app/example',
     googlePlayStoreUrl: 'https://play.google.com/store/apps/details?id=example',
+    androidAppSha256: Array(32).fill('AA').join(':'),
   });
   await new Promise((resolve) => publicServer.listen(0, '127.0.0.1', resolve));
   publicBaseUrl = `http://127.0.0.1:${publicServer.address().port}`;
@@ -277,6 +312,22 @@ test('root serves the landing page and its assets', async () => {
   const stylesheet = await fetch(`${publicBaseUrl}/landing/styles.css`);
   assert.equal(stylesheet.status, 200);
   assert.match(stylesheet.headers.get('content-type'), /^text\/css/);
+});
+
+test('iOS association file describes the listing paths', async () => {
+  const response = await fetch(`${publicBaseUrl}/.well-known/apple-app-site-association`);
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.applinks.details[0].appID, 'N5MP95N62Q.com.mobile.suitemonger');
+  assert.deepEqual(body.applinks.details[0].paths, ['/suites/*']);
+});
+
+test('Android association identifies the app and signing fingerprint', async () => {
+  const response = await fetch(`${publicBaseUrl}/.well-known/assetlinks.json`);
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body[0].target.package_name, 'com.mobile.suitemonger');
+  assert.deepEqual(body[0].target.sha256_cert_fingerprints, [Array(32).fill('AA').join(':')]);
 });
 
 test('main page fetches the requested page and renders crawlable pagination', async () => {

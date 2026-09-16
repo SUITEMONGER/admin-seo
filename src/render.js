@@ -214,15 +214,15 @@ function renderDocument({
     <p>Find and book trusted stays with SuiteMonger.</p>
     <p>&copy; ${new Date().getUTCFullYear()} SuiteMonger</p>
   </footer>
-  <script src="/store-redirect.js?v=20260912-3" defer></script>
+  <script src="/store-redirect.js?v=20260916-1" defer></script>
   <script src="/gallery.js?v=20260912-3" defer></script>
   ${scripts}
 </body>
 </html>`;
 }
 
-function renderStoreLink(label, className, storeUrls = {}) {
-  return `<a class="${escapeHtml(className)}" href="/" data-store-redirect data-fallback-url="/" data-apple-store-url="${escapeHtml(storeUrls.appleStoreUrl || '')}" data-google-store-url="${escapeHtml(storeUrls.googlePlayStoreUrl || '')}">${escapeHtml(label)}</a>`;
+function renderStoreLink(label, className, storeUrls = {}, openAppPath = '') {
+  return `<a class="${escapeHtml(className)}" href="/" ${openAppPath ? `data-open-app-path="${escapeHtml(openAppPath)}"` : 'data-store-redirect'} data-fallback-url="/" data-apple-store-url="${escapeHtml(storeUrls.appleStoreUrl || '')}" data-google-store-url="${escapeHtml(storeUrls.googlePlayStoreUrl || '')}">${escapeHtml(label)}</a>`;
 }
 
 function galleryButton(url, index, title, className, loading = 'lazy') {
@@ -364,7 +364,7 @@ function renderListingPage(listing, publicBaseUrl, storeUrls = {}) {
       <aside class="booking-card">
         ${price ? `<p class="price"><strong>${escapeHtml(price)}</strong><span>${escapeHtml(listing.payment_style || '')}</span></p>` : ''}
         <p>Check live availability and complete your booking securely in the SuiteMonger app.</p>
-        ${renderStoreLink('Open in SuiteMonger', 'primary-cta', storeUrls)}
+        ${renderStoreLink('Open in SuiteMonger', 'primary-cta', storeUrls, path)}
         <small>Listing reference: ${escapeHtml(listing.id)}</small>
       </aside>
     </article>
@@ -424,7 +424,7 @@ function renderSubListingPage(listing, subListing, publicBaseUrl, storeUrls = {}
       <aside class="booking-card">
         ${price ? `<p class="price"><strong>${escapeHtml(price)}</strong><span>${escapeHtml(subListing.payment_style || '')}</span></p>` : ''}
         <p>Check live availability for this suite option and complete your booking in the SuiteMonger app.</p>
-        ${renderStoreLink('Open in SuiteMonger', 'primary-cta', storeUrls)}
+        ${renderStoreLink('Open in SuiteMonger', 'primary-cta', storeUrls, path)}
         <small>Suite option reference: ${escapeHtml(subListing.id)}</small>
       </aside>
     </article>

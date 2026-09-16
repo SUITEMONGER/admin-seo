@@ -24,7 +24,8 @@ const {
 const ROOT = __dirname;
 const LANDING_ROOT = path.join(ROOT, 'src', 'landing');
 const DEFAULT_API_BASE_URL = 'https://api.suitemonger.com/api/v1';
-const DEFAULT_PUBLIC_BASE_URL = 'https://suitemonger.com';
+const DEFAULT_PUBLIC_BASE_URL = 'https://www.suitemonger.com';
+const DEFAULT_ANDROID_APP_SHA256 = '32:A8:A4:F8:C6:69:13:67:4F:BA:10:CA:E3:7E:AB:AC:87:6F:03:A7:E3:D0:99:9F:D0:FE:57:E9:37:33:38:B0';
 
 try {
   const localEnv = readFileSync(path.join(ROOT, '.env'), 'utf8');
@@ -44,6 +45,8 @@ function appConfig(overrides = {}) {
     publicBaseUrl: String(overrides.publicBaseUrl || process.env.PUBLIC_BASE_URL || DEFAULT_PUBLIC_BASE_URL).replace(/\/+$/, ''),
     appleStoreUrl: overrides.appleStoreUrl ?? process.env.APPLE_STORE_URL ?? '',
     googlePlayStoreUrl: overrides.googlePlayStoreUrl ?? process.env.GOOGLE_PLAY_STORE_URL ?? '',
+    appleTeamId: overrides.appleTeamId ?? process.env.APPLE_TEAM_ID ?? 'N5MP95N62Q',
+    androidAppSha256: overrides.androidAppSha256 ?? process.env.ANDROID_APP_SHA256 ?? DEFAULT_ANDROID_APP_SHA256,
   };
 }
 
@@ -112,6 +115,40 @@ function createRequestHandler(overrides = {}) {
     try {
       if (pathname === '/health') {
         send(response, method, 200, JSON.stringify({ status: 'ok' }), securityHeaders('application/json; charset=utf-8', 'no-store'));
+        return;
+      }
+
+      if (pathname === '/.well-known/apple-app-site-association') {
+        const body = JSON.stringify({
+          applinks: {
+            apps: [],
+            details: [{
+              appID: `${config.appleTeamId}.com.mobile.suitemonger`,
+              paths: ['/suites/*'],
+            }],
+          },
+        });
+        send(response, method, 200, body, securityHeaders('application/json; charset=utf-8', 'public, max-age=3600'));
+        return;
+      }
+
+      if (pathname === '/.well-known/assetlinks.json') {
+        const fingerprints = config.androidAppSha256.split(',')
+          .map((value) => value.trim().toUpperCase())
+          .filter((value) => /^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(value));
+        if (fingerprints.length === 0) {
+          send(response, method, 503, JSON.stringify({ error: 'ANDROID_APP_SHA256 is not configured' }), securityHeaders('application/json; charset=utf-8', 'no-store'));
+          return;
+        }
+        const body = JSON.stringify([{
+          relation: ['delegate_permission/common.handle_all_urls'],
+          target: {
+            namespace: 'android_app',
+            package_name: 'com.mobile.suitemonger',
+            sha256_cert_fingerprints: fingerprints,
+          },
+        }]);
+        send(response, method, 200, body, securityHeaders('application/json; charset=utf-8', 'public, max-age=3600'));
         return;
       }
 
