@@ -15,6 +15,8 @@ const {
 } = require('../src/listing');
 const { renderListingPage, renderSubListingPage } = require('../src/render');
 
+const testAndroidFingerprints = [Array(32).fill('AA').join(':'), Array(32).fill('BB').join(':')];
+
 function resolvedStoreUrl({ userAgent, platform = '', maxTouchPoints = 0 }) {
   const link = {
     dataset: {
@@ -243,7 +245,7 @@ before(async () => {
     publicBaseUrl: 'http://127.0.0.1',
     appleStoreUrl: 'https://apps.apple.com/app/example',
     googlePlayStoreUrl: 'https://play.google.com/store/apps/details?id=example',
-    androidAppSha256: Array(32).fill('AA').join(':'),
+    androidAppSha256: JSON.stringify([...testAndroidFingerprints, testAndroidFingerprints[0].toLowerCase()]),
   });
   await new Promise((resolve) => publicServer.listen(0, '127.0.0.1', resolve));
   publicBaseUrl = `http://127.0.0.1:${publicServer.address().port}`;
@@ -322,12 +324,25 @@ test('iOS association file describes the listing paths', async () => {
   assert.deepEqual(body.applinks.details[0].paths, ['/suites/*']);
 });
 
-test('Android association identifies the app and signing fingerprint', async () => {
+test('Android association includes distinct local and production signing fingerprints', async () => {
   const response = await fetch(`${publicBaseUrl}/.well-known/assetlinks.json`);
   assert.equal(response.status, 200);
   const body = await response.json();
   assert.equal(body[0].target.package_name, 'com.mobile.suitemonger');
-  assert.deepEqual(body[0].target.sha256_cert_fingerprints, [Array(32).fill('AA').join(':')]);
+  assert.deepEqual(body[0].target.sha256_cert_fingerprints, testAndroidFingerprints);
+});
+
+test('Android association also accepts comma-separated fingerprints', async () => {
+  const server = createServer({ androidAppSha256: testAndroidFingerprints.join(',') });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  try {
+    const response = await fetch(`http://127.0.0.1:${server.address().port}/.well-known/assetlinks.json`);
+    assert.equal(response.status, 200);
+    const body = await response.json();
+    assert.deepEqual(body[0].target.sha256_cert_fingerprints, testAndroidFingerprints);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
 });
 
 test('main page fetches the requested page and renders crawlable pagination', async () => {

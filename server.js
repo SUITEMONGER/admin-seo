@@ -50,6 +50,31 @@ function appConfig(overrides = {}) {
   };
 }
 
+function androidAppFingerprints(value) {
+  let entries = value;
+  if (typeof entries === 'string') {
+    const trimmed = entries.trim();
+    if (trimmed.startsWith('[')) {
+      try {
+        entries = JSON.parse(trimmed);
+      } catch {
+        return [];
+      }
+    } else {
+      entries = trimmed.split(',');
+    }
+  }
+  if (!Array.isArray(entries) || entries.length === 0) return [];
+
+  const fingerprints = entries.map((entry) =>
+    typeof entry === 'string' ? entry.trim().toUpperCase() : '',
+  );
+  if (fingerprints.some((entry) => !/^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(entry))) {
+    return [];
+  }
+  return [...new Set(fingerprints)];
+}
+
 function staticContentType(filename) {
   const extension = path.extname(filename).toLowerCase();
   return {
@@ -133,11 +158,9 @@ function createRequestHandler(overrides = {}) {
       }
 
       if (pathname === '/.well-known/assetlinks.json') {
-        const fingerprints = config.androidAppSha256.split(',')
-          .map((value) => value.trim().toUpperCase())
-          .filter((value) => /^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(value));
+        const fingerprints = androidAppFingerprints(config.androidAppSha256);
         if (fingerprints.length === 0) {
-          send(response, method, 503, JSON.stringify({ error: 'ANDROID_APP_SHA256 is not configured' }), securityHeaders('application/json; charset=utf-8', 'no-store'));
+          send(response, method, 503, JSON.stringify({ error: 'ANDROID_APP_SHA256 must contain valid SHA-256 fingerprints' }), securityHeaders('application/json; charset=utf-8', 'no-store'));
           return;
         }
         const body = JSON.stringify([{
