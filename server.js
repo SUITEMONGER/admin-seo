@@ -148,8 +148,9 @@ function createRequestHandler(overrides = {}) {
           applinks: {
             apps: [],
             details: [{
-              appID: `${config.appleTeamId}.com.mobile.suitemonger`,
+              appIDs: [`${config.appleTeamId}.com.mobile.suitemonger`,`N5MP95N62Q.com.mobile.suitemonger`],
               paths: ['/suites/*'],
+              components: [{"/":"/suites/*"}]
             }],
           },
         });
