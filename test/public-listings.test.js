@@ -316,6 +316,18 @@ test('root serves the landing page and its assets', async () => {
   assert.match(stylesheet.headers.get('content-type'), /^text\/css/);
 });
 
+test('account deletion paths return the placeholder without a 404', async () => {
+  for (const route of ['/delete/user-123', '/delete?userId=user-123', '/delete']) {
+    const response = await fetch(`${publicBaseUrl}${route}`);
+    const html = await response.text();
+
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get('content-type'), /^text\/html/);
+    assert.match(html, /Delete your account/);
+    assert.match(html, /<meta name="robots" content="noindex,nofollow">/);
+  }
+});
+
 test('iOS association file describes the listing paths', async () => {
   const response = await fetch(`${publicBaseUrl}/.well-known/apple-app-site-association`);
   assert.equal(response.status, 200);

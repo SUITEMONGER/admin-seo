@@ -48,6 +48,7 @@ Production defaults to `https://api.suitemonger.com/api/v1` and `https://www.sui
 - `/suites/{id}` redirects to the listing's canonical route.
 - `/suites/{category}/{name-and-address}--{id}/options/{option-name}--{sublisting-id}` renders a sublisting.
 - `/suites/{id}/options/{sublisting-id}` redirects to the sublisting's canonical route.
+- `/delete/{userId}` serves the account-deletion placeholder until backend processing is connected. `/delete?userId={userId}` is also accepted.
 - `/robots.txt` allows crawling and points to the sitemap.
 - `/sitemap.xml` is the sitemap index.
 - `/sitemaps/listings-{page}.xml` lists approved listing URLs.

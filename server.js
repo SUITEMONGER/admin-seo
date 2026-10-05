@@ -15,6 +15,7 @@ const {
 const {
   absoluteUrl,
   escapeXml,
+  renderDeleteAccountPage,
   renderErrorPage,
   renderHomePage,
   renderListingPage,
@@ -179,6 +180,18 @@ function createRequestHandler(overrides = {}) {
       if (pathname === '/') {
         const html = await readFile(path.join(LANDING_ROOT, 'index.html'));
         send(response, method, 200, html, securityHeaders('text/html; charset=utf-8'));
+        return;
+      }
+
+      const deleteAccountMatch = pathname.match(/^\/delete(?:\/([^/]+))?$/);
+      if (deleteAccountMatch) {
+        const pathUserID = deleteAccountMatch[1] || '';
+        const queryUserID = url.searchParams.get('userId') || url.searchParams.get('user_id') || '';
+        const userID = pathUserID || queryUserID;
+        if (userID.length > 256) throw new ApiError('Page not found', 404);
+
+        const body = renderDeleteAccountPage(config.publicBaseUrl, config);
+        send(response, method, 200, body, securityHeaders('text/html; charset=utf-8', 'no-store'));
         return;
       }
 

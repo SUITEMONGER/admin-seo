@@ -572,10 +572,24 @@ function renderErrorPage(status, publicBaseUrl, storeUrls = {}) {
   });
 }
 
+function renderDeleteAccountPage(publicBaseUrl, storeUrls = {}) {
+  const title = 'Delete your account | SuiteMonger';
+  const description = 'SuiteMonger account deletion request page.';
+  return renderDocument({
+    title,
+    description,
+    canonicalUrl: absoluteUrl(publicBaseUrl, '/delete'),
+    robots: 'noindex,nofollow',
+    body: `<main class="error-shell"><p class="eyebrow">Account settings</p><h1>Delete your account</h1><p>This account deletion page is ready. The secure deletion workflow will be available here shortly.</p><a class="primary-cta" href="/">Return home</a></main>`,
+    storeUrls,
+  });
+}
+
 module.exports = {
   absoluteUrl,
   escapeHtml,
   escapeXml,
+  renderDeleteAccountPage,
   renderErrorPage,
   renderHomePage,
   renderListingPage,
