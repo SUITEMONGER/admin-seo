@@ -229,6 +229,39 @@ before(async () => {
       response.end(JSON.stringify({ status: true, data: listing }));
       return;
     }
+    if (request.url === '/api/v1/listings/categories') {
+      response.end(JSON.stringify({ status: true, data: [{ name: 'Serviced Apartment', slug: 'serviced-apartment', active: true }] }));
+      return;
+    }
+    if (request.url === '/api/v1/vendors/services/providers?limit=2') {
+      response.end(JSON.stringify({
+        status: true,
+        data: {
+          items: [{
+            id: 'provider-1',
+            full_name: 'Sparkle Home Care',
+            profession_name: 'Home cleaning',
+            currency: 'NGN',
+            price: 28000,
+            charge_type: 'PER_SESSION',
+            address: 'Lekki, Lagos',
+            available_anywhere: false,
+            distance_label: 'Serves near Lekki, Lagos',
+            service_image_urls: ['https://images.example.com/cleaning.jpg'],
+          }],
+          total: 1,
+        },
+      }));
+      return;
+    }
+    if (request.url === '/api/v1/listings/guest/closest?page=1&limit=6&category=serviced-apartment') {
+      response.end(JSON.stringify({ status: true, data: { items: [listing], page: 1, limit: 6, total: 1, total_pages: 1, has_next: false } }));
+      return;
+    }
+    if (request.url === '/api/v1/listings/guest/closest?page=1&limit=10&category=serviced-apartment') {
+      response.end(JSON.stringify({ status: true, data: { items: [listing], page: 1, limit: 10, total: 1, total_pages: 1, has_next: false } }));
+      return;
+    }
     if (request.url === '/api/v1/listings?page=1' || request.url === '/api/v1/listings?page=2') {
       const page = request.url.endsWith('2') ? 2 : 1;
       response.end(JSON.stringify({ status: true, data: { items: [listing], page, limit: 10, total: 21, total_pages: 3, has_next: page < 3 } }));
@@ -307,13 +340,111 @@ test('root serves the landing page and its assets', async () => {
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /SuiteMonger is the trust layer/);
+  assert.match(html, /Find your space\./);
+  assert.match(html, /id="listing-rail"/);
   assert.match(html, /href="\/suites"/);
   assert.match(html, /href="\/landing\/styles\.css"/);
+  assert.match(html, /href="\/about">About us/);
+  assert.match(html, /src="\/landing\/assets\/apple\.png"/);
+  assert.equal((html.match(/<details class="faq-item">/g) || []).length, 6);
+  assert.doesNotMatch(html, /class="faq-copy"/);
+  assert.doesNotMatch(html, /<details[^>]*\sopen(?:\s|>)/);
+  assert.match(html, /support@suitemonger\.com/);
+  assert.match(html, /Find the place\. Book the help\./);
 
   const stylesheet = await fetch(`${publicBaseUrl}/landing/styles.css`);
   assert.equal(stylesheet.status, 200);
   assert.match(stylesheet.headers.get('content-type'), /^text\/css/);
+  assert.match(await stylesheet.clone().text(), /--orange: #ff7a1a/);
+
+  const image = await fetch(`${publicBaseUrl}/landing/assets/image-1.jpg`);
+  assert.equal(image.status, 200);
+  assert.equal(image.headers.get('content-type'), 'image/jpeg');
+
+  const appleLogo = await fetch(`${publicBaseUrl}/landing/assets/apple.png`);
+  assert.equal(appleLogo.status, 200);
+  assert.equal(appleLogo.headers.get('content-type'), 'image/png');
+});
+
+test('about page and alias render the complete SuiteMonger story', async () => {
+  const response = await fetch(`${publicBaseUrl}/about`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get('content-type'), /^text\/html/);
+  assert.match(html, /About SuiteMonger/);
+  assert.match(html, /Built to make the journey simpler/);
+  assert.match(html, /Three parts of the experience/);
+  assert.match(html, /<strong>24<\/strong><span>hours for the lister to respond<\/span>/);
+  assert.match(html, /Alphahoop Limited/);
+  assert.match(html, /RC 9700366/);
+  assert.match(html, /src="\/landing\/assets\/apple\.png"/);
+
+  const alias = await fetch(`${publicBaseUrl}/about-us`);
+  assert.equal(alias.status, 200);
+  assert.match(await alias.text(), /Our purpose/);
+
+  const stylesheet = await fetch(`${publicBaseUrl}/landing/about.css`);
+  assert.equal(stylesheet.status, 200);
+  assert.match(stylesheet.headers.get('content-type'), /^text\/css/);
+
+  const script = await fetch(`${publicBaseUrl}/landing/about.js`);
+  assert.equal(script.status, 200);
+  assert.match(script.headers.get('content-type'), /^application\/javascript/);
+});
+
+test('landing search proxies public categories and returns six-card listing data', async () => {
+  const categories = await fetch(`${publicBaseUrl}/landing/api/categories`);
+  assert.equal(categories.status, 200);
+  assert.deepEqual(await categories.json(), {
+    items: [{ name: 'Serviced Apartment', slug: 'serviced-apartment' }],
+  });
+
+  const response = await fetch(`${publicBaseUrl}/landing/api/listings?category=serviced-apartment&guests=2`);
+  const body = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(body.items.length, 1);
+  assert.equal(body.items[0].title, listing.property_title);
+  assert.equal(body.items[0].path, listingPath(listing));
+  assert.equal(body.filters.guests, '2');
+});
+
+test('landing exposes configured app-store destinations without hardcoding them in the page', async () => {
+  const response = await fetch(`${publicBaseUrl}/landing/api/config`);
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), {
+    appleStoreUrl: 'https://apps.apple.com/app/example',
+    googlePlayStoreUrl: 'https://play.google.com/store/apps/details?id=example',
+  });
+});
+
+test('landing service showcase returns safe active-provider display data', async () => {
+  const response = await fetch(`${publicBaseUrl}/landing/api/services`);
+  const body = await response.json();
+
+  assert.equal(response.status, 200);
+  assert.equal(body.items.length, 1);
+  assert.deepEqual(body.items[0], {
+    id: 'provider-1',
+    name: 'Sparkle Home Care',
+    profession: 'Home cleaning',
+    image: 'https://images.example.com/cleaning.jpg',
+    currency: 'NGN',
+    price: 28000,
+    chargeType: 'PER_SESSION',
+    address: 'Lekki, Lagos',
+    distanceLabel: 'Serves near Lekki, Lagos',
+    availableAnywhere: false,
+  });
+});
+
+test('view-all suites route applies and preserves the landing category filter', async () => {
+  const response = await fetch(`${publicBaseUrl}/suites?category=serviced-apartment&guests=2`);
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Luxury Two Bedroom Suite/);
+  assert.match(html, /canonical" href="http:\/\/127\.0\.0\.1\/suites\?category=serviced-apartment&amp;guests=2"/);
 });
 
 test('account deletion paths return the placeholder without a 404', async () => {

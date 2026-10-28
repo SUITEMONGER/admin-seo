@@ -1,0 +1,1009 @@
+.about-page {
+  background: #fbfbfa;
+}
+
+.about-page .header-actions__app.is-current {
+  color: white;
+}
+
+.about-hero {
+  background: #101114;
+  color: white;
+  min-height: 860px;
+  overflow: hidden;
+  padding: 150px 5.6vw 92px;
+  position: relative;
+}
+
+.about-hero__glow {
+  background:
+    radial-gradient(circle at 20% 22%, rgba(255, 49, 38, 0.21), transparent 34%),
+    radial-gradient(circle at 82% 62%, rgba(255, 122, 26, 0.13), transparent 31%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.about-hero__inner {
+  align-items: center;
+  display: grid;
+  gap: clamp(60px, 8vw, 130px);
+  grid-template-columns: minmax(500px, 1.08fr) minmax(430px, 0.92fr);
+  margin: 0 auto;
+  max-width: 1500px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-hero .eyebrow {
+  color: #ff8a47;
+}
+
+.about-hero h1 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(57px, 5.5vw, 84px);
+  font-weight: 700;
+  letter-spacing: -0.058em;
+  line-height: 1.03;
+  margin-top: 22px;
+}
+
+.about-hero__accent {
+  color: var(--red);
+}
+
+.about-hero__copy > p:not(.eyebrow) {
+  color: #b6b7bd;
+  font-size: clamp(17px, 1.35vw, 21px);
+  line-height: 1.6;
+  margin-top: 26px;
+  max-width: 690px;
+}
+
+.about-hero__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 38px;
+}
+
+.about-hero__visual {
+  height: 580px;
+  position: relative;
+}
+
+.about-hero__image {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  position: absolute;
+}
+
+.about-hero__image img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.about-hero__image--home {
+  border-radius: 160px 160px 18px 18px;
+  height: 500px;
+  left: 0;
+  top: 20px;
+  width: 66%;
+}
+
+.about-hero__image--service {
+  border-radius: 18px;
+  bottom: 0;
+  height: 330px;
+  right: 0;
+  width: 50%;
+}
+
+.about-hero__stamp {
+  background: rgba(15, 16, 18, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  bottom: 42px;
+  display: grid;
+  gap: 4px;
+  left: 7%;
+  padding: 15px 17px;
+  position: absolute;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.about-hero__stamp span {
+  color: #a8a9af;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.about-hero__stamp strong {
+  font-size: 13px;
+}
+
+.about-index {
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: clamp(24px, 4vw, 62px);
+  justify-content: center;
+  min-height: 68px;
+  overflow-x: auto;
+  padding: 0 5vw;
+  position: sticky;
+  scrollbar-width: none;
+  top: 0;
+  z-index: 12;
+}
+
+.about-index::-webkit-scrollbar {
+  display: none;
+}
+
+.about-index a {
+  color: var(--muted);
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 180ms ease;
+}
+
+.about-index a:hover,
+.about-index a.is-active {
+  color: var(--red);
+}
+
+.about-story,
+.purpose,
+.about-offer,
+.about-journeys,
+.confidence,
+.about-benefits,
+.about-values,
+.about-more,
+.about-join {
+  scroll-margin-top: 68px;
+}
+
+.about-story {
+  display: grid;
+  gap: clamp(70px, 10vw, 170px);
+  grid-template-columns: minmax(340px, 0.8fr) minmax(560px, 1.2fr);
+  padding: 124px 5.6vw;
+}
+
+.about-story__lead h2,
+.purpose__heading h2,
+.about-offer__heading h2,
+.about-journeys__heading h2,
+.confidence__intro h2,
+.about-benefits__heading h2,
+.about-values__heading h2,
+.about-more__copy h2,
+.about-join h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(43px, 4.5vw, 65px);
+  letter-spacing: -0.052em;
+  line-height: 1.05;
+  margin-top: 20px;
+}
+
+.about-story__body {
+  max-width: 780px;
+}
+
+.about-story__body > p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+
+.about-story__body strong {
+  color: var(--ink);
+}
+
+.about-story blockquote {
+  border-left: 3px solid var(--red);
+  font-family: "Manrope", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: 38px;
+  padding: 6px 0 6px 25px;
+}
+
+.purpose {
+  background: #f2f1ee;
+  padding: 116px 5.6vw 124px;
+}
+
+.purpose__heading {
+  max-width: 900px;
+}
+
+.purpose__grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 64px;
+}
+
+.purpose__grid article {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  min-height: 390px;
+  padding: 42px;
+}
+
+.purpose__grid article > span,
+.about-offer__number,
+.about-benefits__grid article > span,
+.about-values__grid article > span {
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.purpose__grid h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 31px;
+  letter-spacing: -0.035em;
+  margin-top: 72px;
+}
+
+.purpose__grid p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+  margin-top: 16px;
+}
+
+.about-offer {
+  background: white;
+  padding: 124px 5.6vw;
+}
+
+.about-offer__heading {
+  margin: 0 auto;
+  max-width: 980px;
+  text-align: center;
+}
+
+.about-offer__heading > p:last-child,
+.about-journeys__heading > p:last-child {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.55;
+  margin: 22px auto 0;
+  max-width: 730px;
+}
+
+.about-offer__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 70px;
+}
+
+.about-offer__grid article {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  min-height: 520px;
+  padding: 34px;
+  transition: border-color 220ms ease, transform 220ms ease;
+}
+
+.about-offer__grid article:hover {
+  border-color: rgba(255, 49, 38, 0.35);
+  transform: translateY(-5px);
+}
+
+.about-offer__grid h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 25px;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin-top: 82px;
+}
+
+.about-offer__grid p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 18px;
+}
+
+.about-offer__grid ul {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin-top: 24px;
+  padding-top: 22px;
+}
+
+.about-offer__grid li {
+  color: #4f5259;
+  font-size: 12px;
+  padding-left: 17px;
+  position: relative;
+}
+
+.about-offer__grid li::before {
+  background: var(--red);
+  border-radius: 50%;
+  content: "";
+  height: 5px;
+  left: 0;
+  position: absolute;
+  top: 6px;
+  width: 5px;
+}
+
+.about-journeys {
+  background: #f2f1ee;
+  padding: 120px 5.6vw;
+}
+
+.about-journeys__heading {
+  max-width: 850px;
+}
+
+.about-journeys__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 62px;
+}
+
+.about-journeys__grid > article {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  min-height: 560px;
+  padding: 30px;
+}
+
+.about-journeys__label {
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-journeys ol {
+  list-style: none;
+  margin-top: 32px;
+}
+
+.about-journeys li {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 28px 1fr;
+  padding: 20px 0;
+}
+
+.about-journeys li > span {
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.about-journeys li strong {
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+}
+
+.about-journeys li p,
+.about-journeys__provider p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 7px;
+}
+
+.about-journeys__provider {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 35px);
+  justify-content: flex-end;
+}
+
+.about-journeys__provider h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 31px;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.about-journeys__provider a {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 30px;
+}
+
+.confidence {
+  background: #0d0d0f;
+  color: white;
+  padding: 124px 5.6vw;
+}
+
+.confidence__intro {
+  max-width: 850px;
+}
+
+.confidence__intro > p:last-child {
+  color: #92939a;
+  font-size: 17px;
+  line-height: 1.6;
+  margin-top: 22px;
+  max-width: 700px;
+}
+
+.confidence__booking {
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: grid;
+  gap: clamp(50px, 8vw, 130px);
+  grid-template-columns: 280px minmax(0, 1fr);
+  margin-top: 70px;
+  padding: 52px 0;
+}
+
+.confidence__time {
+  align-items: flex-end;
+  display: flex;
+  gap: 13px;
+}
+
+.confidence__time strong {
+  color: var(--orange);
+  font-family: "Manrope", sans-serif;
+  font-size: 110px;
+  letter-spacing: -0.08em;
+  line-height: 0.8;
+}
+
+.confidence__time span {
+  color: #aaaab0;
+  font-size: 12px;
+  line-height: 1.35;
+  max-width: 90px;
+}
+
+.confidence__booking h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.04em;
+  line-height: 1.13;
+}
+
+.confidence__booking p {
+  color: #98999f;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: 16px;
+  max-width: 800px;
+}
+
+.confidence__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 22px;
+}
+
+.confidence__grid article {
+  background: #151517;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 16px;
+  min-height: 240px;
+  padding: 30px;
+}
+
+.confidence__grid span {
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.confidence__grid h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 23px;
+  margin-top: 64px;
+}
+
+.confidence__grid p {
+  color: #92939a;
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 10px;
+}
+
+.about-benefits {
+  background: white;
+  padding: 124px 5.6vw;
+}
+
+.about-benefits__heading {
+  max-width: 880px;
+}
+
+.about-benefits__grid {
+  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 68px;
+}
+
+.about-benefits__grid article {
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  min-height: 280px;
+  padding: 30px;
+}
+
+.about-benefits__grid h3,
+.about-values__grid h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.025em;
+  margin-top: 65px;
+}
+
+.about-benefits__grid p,
+.about-values__grid p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 10px;
+}
+
+.about-values {
+  background: #fff8f3;
+  padding: 124px 5.6vw;
+}
+
+.about-values__heading {
+  max-width: 930px;
+}
+
+.about-values__grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 68px;
+}
+
+.about-values__grid article {
+  background: white;
+  border: 1px solid rgba(255, 122, 26, 0.16);
+  border-radius: 16px;
+  min-height: 240px;
+  padding: 28px;
+}
+
+.about-more {
+  align-items: stretch;
+  background: white;
+  display: grid;
+  grid-template-columns: minmax(420px, 0.9fr) minmax(520px, 1.1fr);
+  min-height: 760px;
+}
+
+.about-more__visual {
+  min-height: 680px;
+  overflow: hidden;
+}
+
+.about-more__visual img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.about-more__copy {
+  align-self: center;
+  padding: 80px clamp(48px, 7vw, 120px);
+}
+
+.about-more__copy > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-top: 20px;
+}
+
+.about-more__commitment {
+  border-top: 1px solid var(--line);
+  margin-top: 38px;
+  padding-top: 30px;
+}
+
+.about-more__commitment > strong {
+  color: var(--red);
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.about-more__commitment p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.about-join {
+  align-items: center;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(255, 122, 26, 0.2), transparent 32%),
+    #111113;
+  color: white;
+  display: grid;
+  gap: clamp(60px, 9vw, 150px);
+  grid-template-columns: minmax(440px, 1fr) minmax(430px, 0.9fr);
+  padding: 110px 5.6vw;
+}
+
+.about-join__copy > p:not(.eyebrow) {
+  color: #a6a7ad;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 21px;
+  max-width: 700px;
+}
+
+.about-join__paths {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.about-join__paths a {
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  display: grid;
+  gap: 7px 20px;
+  grid-template-columns: 1fr auto;
+  padding: 25px 3px;
+  transition: padding 180ms ease;
+}
+
+.about-join__paths a:hover {
+  padding-left: 10px;
+}
+
+.about-join__paths span {
+  color: #8f9097;
+  font-size: 11px;
+}
+
+.about-join__paths strong {
+  font-family: "Manrope", sans-serif;
+  font-size: 17px;
+}
+
+.about-join__paths i {
+  color: var(--orange);
+  font-style: normal;
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+.company-facts {
+  background: var(--orange);
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 0 5.6vw;
+}
+
+.company-facts p {
+  border-right: 1px solid rgba(255, 255, 255, 0.28);
+  display: grid;
+  gap: 7px;
+  min-height: 120px;
+  padding: 30px;
+  place-content: center start;
+}
+
+.company-facts p:last-child {
+  border-right: 0;
+}
+
+.company-facts span {
+  font-size: 10px;
+  opacity: 0.78;
+  text-transform: uppercase;
+}
+
+.company-facts strong {
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+}
+
+.footer-company {
+  color: #d5d5d8;
+  font-size: 11px !important;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 14px !important;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1180px) {
+  .about-hero__inner {
+    gap: 50px;
+    grid-template-columns: minmax(430px, 1fr) minmax(360px, 0.82fr);
+  }
+
+  .about-offer__grid article,
+  .about-journeys__grid > article {
+    padding: 27px;
+  }
+
+  .about-join {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 860px) {
+  .about-hero {
+    padding: 135px 24px 78px;
+  }
+
+  .about-hero__inner,
+  .about-story,
+  .about-more,
+  .about-join {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero__visual {
+    height: 520px;
+    margin: 0 auto;
+    max-width: 610px;
+    width: 100%;
+  }
+
+  .about-index {
+    justify-content: flex-start;
+  }
+
+  .about-story,
+  .purpose,
+  .about-offer,
+  .about-journeys,
+  .confidence,
+  .about-benefits,
+  .about-values,
+  .about-join {
+    padding: 92px 5vw;
+  }
+
+  .about-story {
+    gap: 48px;
+  }
+
+  .purpose__grid,
+  .confidence__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-offer__grid,
+  .about-journeys__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-offer__grid article,
+  .about-journeys__grid > article {
+    min-height: 0;
+  }
+
+  .about-journeys__provider {
+    min-height: 360px;
+  }
+
+  .confidence__booking {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .about-benefits__grid,
+  .about-values__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-more__visual {
+    min-height: 560px;
+  }
+
+  .about-join {
+    gap: 60px;
+  }
+
+  .company-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .company-facts p:nth-child(2) {
+    border-right: 0;
+  }
+
+  .company-facts p:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  }
+}
+
+@media (max-width: 620px) {
+  .about-hero {
+    min-height: 0;
+    padding: 128px 18px 64px;
+  }
+
+  .about-hero h1 {
+    font-size: 43px;
+  }
+
+  .about-hero__copy > p:not(.eyebrow) {
+    font-size: 15px;
+  }
+
+  .about-hero__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .about-hero__visual {
+    height: 410px;
+  }
+
+  .about-hero__image--home {
+    height: 355px;
+    width: 72%;
+  }
+
+  .about-hero__image--service {
+    height: 230px;
+    width: 52%;
+  }
+
+  .about-hero__stamp {
+    bottom: 22px;
+    left: 4%;
+  }
+
+  .about-index {
+    gap: 25px;
+    min-height: 58px;
+    padding-inline: 18px;
+  }
+
+  .about-story,
+  .purpose,
+  .about-offer,
+  .about-journeys,
+  .confidence,
+  .about-benefits,
+  .about-values,
+  .about-join {
+    padding: 78px 18px;
+  }
+
+  .about-story__lead h2,
+  .purpose__heading h2,
+  .about-offer__heading h2,
+  .about-journeys__heading h2,
+  .confidence__intro h2,
+  .about-benefits__heading h2,
+  .about-values__heading h2,
+  .about-more__copy h2,
+  .about-join h2 {
+    font-size: 38px;
+  }
+
+  .about-story__body > p {
+    font-size: 15px;
+  }
+
+  .about-story blockquote {
+    font-size: 20px;
+  }
+
+  .purpose__grid {
+    margin-top: 42px;
+  }
+
+  .purpose__grid article {
+    min-height: 0;
+    padding: 26px;
+  }
+
+  .purpose__grid h3,
+  .about-offer__grid h3 {
+    margin-top: 48px;
+  }
+
+  .about-offer__heading,
+  .about-offer__heading > p:last-child {
+    text-align: left;
+  }
+
+  .about-offer__grid,
+  .about-journeys__grid,
+  .about-benefits__grid,
+  .about-values__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-offer__grid article {
+    min-height: 0;
+    padding: 26px;
+  }
+
+  .about-journeys__provider {
+    min-height: 320px;
+  }
+
+  .confidence__booking {
+    gap: 35px;
+    grid-template-columns: 1fr;
+  }
+
+  .confidence__time strong {
+    font-size: 90px;
+  }
+
+  .confidence__grid article,
+  .about-benefits__grid article,
+  .about-values__grid article {
+    min-height: 220px;
+  }
+
+  .about-benefits__grid {
+    border-left: 0;
+  }
+
+  .about-benefits__grid article {
+    border-left: 1px solid var(--line);
+  }
+
+  .about-more__visual {
+    min-height: 420px;
+  }
+
+  .about-more__copy {
+    padding: 76px 18px;
+  }
+
+  .about-join .store-links {
+    align-items: stretch;
+  }
+
+  .company-facts {
+    grid-template-columns: 1fr;
+    padding-inline: 18px;
+  }
+
+  .company-facts p,
+  .company-facts p:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+    border-right: 0;
+  }
+
+  .company-facts p:last-child {
+    border-bottom: 0;
+  }
+}

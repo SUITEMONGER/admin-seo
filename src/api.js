@@ -39,6 +39,37 @@ async function fetchApprovedListing(apiBaseUrl, id) {
 
 async function fetchApprovedListings(apiBaseUrl, page = 1) {
   const data = await request(apiBaseUrl, `/listings?page=${Math.max(1, Number(page) || 1)}`);
+  return normalizedListingPage(data);
+}
+
+async function searchApprovedListings(apiBaseUrl, options = {}) {
+  const query = new URLSearchParams({
+    page: String(Math.max(1, Number(options.page) || 1)),
+    limit: String(Math.max(1, Math.min(24, Number(options.limit) || 10))),
+  });
+  const category = String(options.category || '').trim();
+  if (category) query.set('category', category);
+  const data = await request(apiBaseUrl, `/listings/guest/closest?${query}`);
+  return normalizedListingPage(data);
+}
+
+async function fetchListingCategories(apiBaseUrl) {
+  const data = await request(apiBaseUrl, '/listings/categories');
+  return Array.isArray(data)
+    ? data.filter((category) => category?.active !== false && category?.slug && category?.name)
+    : [];
+}
+
+async function fetchPublicServiceProviders(apiBaseUrl, limit = 2) {
+  const safeLimit = Math.max(1, Math.min(12, Number(limit) || 2));
+  const data = await request(apiBaseUrl, `/vendors/services/providers?limit=${safeLimit}`);
+  return {
+    items: Array.isArray(data?.items) ? data.items : [],
+    total: Math.max(0, Number(data?.total) || 0),
+  };
+}
+
+function normalizedListingPage(data) {
   const currentPage = Number(data?.page) || 1;
   const totalPages = Math.max(0, Number(data?.total_pages) || 0);
   return {
@@ -51,4 +82,12 @@ async function fetchApprovedListings(apiBaseUrl, page = 1) {
   };
 }
 
-module.exports = { ApiError, fetchApprovedListing, fetchApprovedListings, normalizeApiBaseUrl };
+module.exports = {
+  ApiError,
+  fetchApprovedListing,
+  fetchApprovedListings,
+  fetchListingCategories,
+  fetchPublicServiceProviders,
+  normalizeApiBaseUrl,
+  searchApprovedListings,
+};

@@ -5,11 +5,22 @@ const { readFileSync } = require('node:fs');
 const { readFile } = require('node:fs/promises');
 const path = require('node:path');
 
-const { ApiError, fetchApprovedListing, fetchApprovedListings } = require('./src/api');
+const {
+  ApiError,
+  fetchApprovedListing,
+  fetchApprovedListings,
+  fetchListingCategories,
+  fetchPublicServiceProviders,
+  searchApprovedListings,
+} = require('./src/api');
 const {
   extractListingId,
   extractSubListingId,
+  listingAddress,
+  listingCurrency,
+  listingImages,
   listingPath,
+  listingPrice,
   subListingPath,
 } = require('./src/listing');
 const {
@@ -82,6 +93,8 @@ function staticContentType(filename) {
     '.css': 'text/css; charset=utf-8',
     '.html': 'text/html; charset=utf-8',
     '.js': 'application/javascript; charset=utf-8',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
     '.png': 'image/png',
     '.svg': 'image/svg+xml',
     '.webp': 'image/webp',
@@ -101,6 +114,58 @@ function securityHeaders(contentType, cacheControl = 'public, max-age=300, stale
 function send(response, requestMethod, status, body, headers = {}) {
   response.writeHead(status, headers);
   response.end(requestMethod === 'HEAD' ? undefined : body);
+}
+
+function landingListing(listing) {
+  const subListings = Array.isArray(listing?.sub_category) ? listing.sub_category : [];
+  const firstSubListing = subListings[0] || {};
+  const amenities = Array.isArray(listing?.amenities) && listing.amenities.length
+    ? listing.amenities
+    : (Array.isArray(firstSubListing.amenities) ? firstSubListing.amenities : []);
+  return {
+    id: String(listing?.id || ''),
+    title: String(listing?.property_title || 'SuiteMonger stay'),
+    category: String(listing?.listing_category || 'Apartment'),
+    address: listingAddress(listing),
+    image: listingImages(listing)[0] || '',
+    path: listingPath(listing),
+    price: listingPrice(listing),
+    currency: listingCurrency(listing),
+    paymentStyle: String(listing?.payment_style || firstSubListing.payment_style || 'per night'),
+    rooms: Number(listing?.number_of_rooms || firstSubListing.number_of_rooms) || 0,
+    bedrooms: Number(listing?.number_of_bedrooms || firstSubListing.number_of_bedrooms) || 0,
+    amenities: amenities.slice(0, 2).map((amenity) => String(amenity?.name || '')).filter(Boolean),
+    rating: Number(listing?.average_rating) || 0,
+    reviewCount: Number(listing?.review_count) || 0,
+  };
+}
+
+function suiteSearchFilters(searchParams) {
+  const filters = {};
+  for (const key of ['category', 'check_in', 'check_out', 'guests']) {
+    const value = String(searchParams.get(key) || '').trim();
+    if (value && value.length <= 80) filters[key] = value;
+  }
+  return filters;
+}
+
+function landingServiceProvider(provider) {
+  const serviceImages = Array.isArray(provider?.service_image_urls)
+    ? provider.service_image_urls.map((url) => String(url || '').trim()).filter((url) => /^https?:\/\//i.test(url))
+    : [];
+  const profileImage = String(provider?.profile_picture_url || '').trim();
+  return {
+    id: String(provider?.id || ''),
+    name: String(provider?.full_name || 'SuiteMonger service provider'),
+    profession: String(provider?.profession_name || 'Professional service'),
+    image: serviceImages[0] || (/^https?:\/\//i.test(profileImage) ? profileImage : ''),
+    currency: String(provider?.currency || 'NGN').toUpperCase(),
+    price: Number(provider?.price) || 0,
+    chargeType: String(provider?.charge_type || ''),
+    address: String(provider?.address || ''),
+    distanceLabel: String(provider?.distance_label || ''),
+    availableAnywhere: Boolean(provider?.available_anywhere),
+  };
 }
 
 function sitemapUrlSet(urls) {
@@ -149,6 +214,7 @@ function createRequestHandler(overrides = {}) {
           applinks: {
             apps: [],
             details: [{
+              appID: `${config.appleTeamId}.com.mobile.suitemonger`,
               appIDs: [`${config.appleTeamId}.com.mobile.suitemonger`,`N5MP95N62Q.com.mobile.suitemonger`],
               paths: ['/suites/*'],
               components: [{"/":"/suites/*"}]
@@ -180,6 +246,54 @@ function createRequestHandler(overrides = {}) {
       if (pathname === '/') {
         const html = await readFile(path.join(LANDING_ROOT, 'index.html'));
         send(response, method, 200, html, securityHeaders('text/html; charset=utf-8'));
+        return;
+      }
+
+      if (pathname === '/about' || pathname === '/about-us') {
+        const html = await readFile(path.join(LANDING_ROOT, 'about.html'));
+        send(response, method, 200, html, securityHeaders('text/html; charset=utf-8'));
+        return;
+      }
+
+      if (pathname === '/landing/api/categories') {
+        const categories = await fetchListingCategories(config.apiBaseUrl);
+        const body = JSON.stringify({ items: categories.map(({ name, slug }) => ({ name, slug })) });
+        send(response, method, 200, body, securityHeaders('application/json; charset=utf-8', 'public, max-age=300'));
+        return;
+      }
+
+      if (pathname === '/landing/api/config') {
+        const body = JSON.stringify({
+          appleStoreUrl: config.appleStoreUrl,
+          googlePlayStoreUrl: config.googlePlayStoreUrl,
+        });
+        send(response, method, 200, body, securityHeaders('application/json; charset=utf-8', 'public, max-age=300'));
+        return;
+      }
+
+      if (pathname === '/landing/api/listings') {
+        const filters = suiteSearchFilters(url.searchParams);
+        const listings = await searchApprovedListings(config.apiBaseUrl, {
+          category: filters.category,
+          page: 1,
+          limit: 6,
+        });
+        const body = JSON.stringify({
+          items: listings.items.slice(0, 6).map(landingListing),
+          total: listings.total,
+          filters,
+        });
+        send(response, method, 200, body, securityHeaders('application/json; charset=utf-8', 'no-store'));
+        return;
+      }
+
+      if (pathname === '/landing/api/services') {
+        const providers = await fetchPublicServiceProviders(config.apiBaseUrl, 2);
+        const body = JSON.stringify({
+          items: providers.items.slice(0, 2).map(landingServiceProvider),
+          total: providers.total,
+        });
+        send(response, method, 200, body, securityHeaders('application/json; charset=utf-8', 'no-store'));
         return;
       }
 
@@ -298,11 +412,14 @@ function createRequestHandler(overrides = {}) {
           return;
         }
         const page = rawPage === null ? 1 : Number(rawPage);
-        const listings = await fetchApprovedListings(config.apiBaseUrl, page);
+        const filters = suiteSearchFilters(url.searchParams);
+        const listings = filters.category
+          ? await searchApprovedListings(config.apiBaseUrl, { category: filters.category, page, limit: 10 })
+          : await fetchApprovedListings(config.apiBaseUrl, page);
         if (page > 1 && (listings.totalPages === 0 || page > listings.totalPages)) {
           throw new ApiError('Page not found', 404);
         }
-        const body = renderHomePage(listings.items, config.publicBaseUrl, listings, config);
+        const body = renderHomePage(listings.items, config.publicBaseUrl, listings, config, filters);
         send(response, method, 200, body, securityHeaders('text/html; charset=utf-8'));
         return;
       }
@@ -337,6 +454,14 @@ function createRequestHandler(overrides = {}) {
       send(response, method, 404, body, securityHeaders('text/html; charset=utf-8', 'no-store'));
     } catch (error) {
       const status = error instanceof ApiError && error.status === 404 ? 404 : 503;
+      if (pathname.startsWith('/landing/api/')) {
+        if (status === 503) console.error(error);
+        send(response, method, status, JSON.stringify({ error: status === 404 ? 'Not found' : 'Listings are temporarily unavailable' }), {
+          ...(status === 503 ? { 'Retry-After': '60' } : {}),
+          ...securityHeaders('application/json; charset=utf-8', 'no-store'),
+        });
+        return;
+      }
       const body = renderErrorPage(status, config.publicBaseUrl, config);
       if (status === 503) console.error(error);
       send(response, method, status, body, {

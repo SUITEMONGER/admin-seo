@@ -443,11 +443,18 @@ function renderSubListingPage(listing, subListing, publicBaseUrl, storeUrls = {}
   });
 }
 
-function homePagePath(page) {
-  return page > 1 ? `/suites?page=${page}` : '/suites';
+function homePagePath(page, filters = {}) {
+  const query = new URLSearchParams();
+  for (const key of ['category', 'check_in', 'check_out', 'guests']) {
+    const value = String(filters[key] || '').trim();
+    if (value) query.set(key, value);
+  }
+  if (page > 1) query.set('page', String(page));
+  const suffix = query.toString();
+  return suffix ? `/suites?${suffix}` : '/suites';
 }
 
-function renderPagination(currentPage, totalPages) {
+function renderPagination(currentPage, totalPages, filters = {}) {
   if (totalPages <= 1) return '';
   const visiblePages = new Set([1, totalPages]);
   for (let page = Math.max(1, currentPage - 2); page <= Math.min(totalPages, currentPage + 2); page += 1) {
@@ -458,31 +465,31 @@ function renderPagination(currentPage, totalPages) {
   const links = orderedPages.map((page) => {
     const gap = lastPage && page - lastPage > 1 ? '<span class="pagination-gap" aria-hidden="true">…</span>' : '';
     lastPage = page;
-    return `${gap}<a href="${homePagePath(page)}" ${page === currentPage ? 'aria-current="page" class="current"' : ''}>${page}</a>`;
+    return `${gap}<a href="${escapeHtml(homePagePath(page, filters))}" ${page === currentPage ? 'aria-current="page" class="current"' : ''}>${page}</a>`;
   }).join('');
 
   return `<nav class="pagination" aria-label="Approved listing pages">
     <p class="pagination-status"><strong>Page ${currentPage}</strong><span>of ${totalPages}</span></p>
     <div class="pagination-controls">
       ${currentPage > 1
-        ? `<a class="pagination-direction" rel="prev" href="${homePagePath(currentPage - 1)}"><span aria-hidden="true">&larr;</span> Newer</a>`
+        ? `<a class="pagination-direction" rel="prev" href="${escapeHtml(homePagePath(currentPage - 1, filters))}"><span aria-hidden="true">&larr;</span> Newer</a>`
         : '<span class="pagination-direction disabled" aria-disabled="true"><span aria-hidden="true">&larr;</span> Newer</span>'}
       <div class="pagination-pages">${links}</div>
       ${currentPage < totalPages
-        ? `<a class="pagination-direction" rel="next" href="${homePagePath(currentPage + 1)}">Older <span aria-hidden="true">&rarr;</span></a>`
+        ? `<a class="pagination-direction" rel="next" href="${escapeHtml(homePagePath(currentPage + 1, filters))}">Older <span aria-hidden="true">&rarr;</span></a>`
         : '<span class="pagination-direction disabled" aria-disabled="true">Older <span aria-hidden="true">&rarr;</span></span>'}
     </div>
   </nav>`;
 }
 
-function renderHomePage(listings, publicBaseUrl, pagination = {}, storeUrls = {}) {
+function renderHomePage(listings, publicBaseUrl, pagination = {}, storeUrls = {}, filters = {}) {
   const currentPage = Math.max(1, Number(pagination.page) || 1);
   const totalPages = Math.max(0, Number(pagination.totalPages) || 0);
   const total = Math.max(0, Number(pagination.total) || 0);
   const pageSize = Math.max(1, Number(pagination.limit) || listings.length || 10);
   const rangeStart = listings.length ? ((currentPage - 1) * pageSize) + 1 : 0;
   const rangeEnd = listings.length ? rangeStart + listings.length - 1 : 0;
-  const canonicalUrl = absoluteUrl(publicBaseUrl, homePagePath(currentPage));
+  const canonicalUrl = absoluteUrl(publicBaseUrl, homePagePath(currentPage, filters));
   const orderedListings = [...listings].sort((left, right) => {
     const leftDate = Date.parse(left?.approved_at || left?.created_at || 0) || 0;
     const rightDate = Date.parse(right?.approved_at || right?.created_at || 0) || 0;
@@ -519,8 +526,8 @@ function renderHomePage(listings, publicBaseUrl, pagination = {}, storeUrls = {}
     ? `Approved suites – page ${currentPage} | SuiteMonger`
     : 'Approved suites and stays | SuiteMonger';
   const extraHead = [
-    currentPage > 1 ? `<link rel="prev" href="${escapeHtml(absoluteUrl(publicBaseUrl, homePagePath(currentPage - 1)))}">` : '',
-    currentPage < totalPages ? `<link rel="next" href="${escapeHtml(absoluteUrl(publicBaseUrl, homePagePath(currentPage + 1)))}">` : '',
+    currentPage > 1 ? `<link rel="prev" href="${escapeHtml(absoluteUrl(publicBaseUrl, homePagePath(currentPage - 1, filters)))}">` : '',
+    currentPage < totalPages ? `<link rel="next" href="${escapeHtml(absoluteUrl(publicBaseUrl, homePagePath(currentPage + 1, filters)))}">` : '',
   ].filter(Boolean).join('\n  ');
 
   return renderDocument({
@@ -549,7 +556,7 @@ function renderHomePage(listings, publicBaseUrl, pagination = {}, storeUrls = {}
             <span>Page ${currentPage}${totalPages ? ` of ${totalPages}` : ''}</span>
           </div>
           <div class="listing-grid">${cards || '<p class="empty-results">No approved listings are available yet.</p>'}</div>
-          ${renderPagination(currentPage, totalPages)}
+          ${renderPagination(currentPage, totalPages, filters)}
         </div>
       </section>
     </main>`,
