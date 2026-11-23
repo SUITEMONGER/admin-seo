@@ -641,6 +641,10 @@ img {
 }
 
 .listing-card__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px;
   font-size: 13px;
   margin-top: 13px;
 }
@@ -649,6 +653,30 @@ img {
   font-family: "Manrope", sans-serif;
   font-size: 16px;
   margin-right: 3px;
+}
+
+.listing-card__price del {
+  flex-basis: 100%;
+  color: #898b90;
+  font-size: 12px;
+}
+
+.listing-card__discount-row {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.listing-card__discount-row strong,
+.listing-card__discount-percentage {
+  color: #16803c;
+}
+
+.listing-card__discount-percentage {
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .stays__footer {

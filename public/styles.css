@@ -254,9 +254,10 @@ h2 { font-size: 1.45rem; letter-spacing: -0.025em; }
 .sublisting-card:hover .sublisting-card-media img { transform: scale(1.035); }
 .sublisting-card-media > span { position: absolute; right: 12px; bottom: 12px; padding: 6px 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.94); box-shadow: 0 5px 16px rgba(36, 29, 26, 0.16); font-size: 0.7rem; font-weight: 800; }
 .sublisting-copy { display: flex; flex-direction: column; min-height: 218px; padding: 20px; }
-.sublisting-heading { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
-.sublisting-heading h3 { margin: 0; font-size: 1.15rem; }
-.sublisting-heading strong { white-space: nowrap; }
+.sublisting-heading { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 8px 18px; }
+.sublisting-heading h3 { flex: 1 1 140px; min-width: 0; margin: 0; overflow-wrap: anywhere; font-size: 1.15rem; }
+.sublisting-heading > strong { white-space: nowrap; }
+.sublisting-price { align-items: flex-end; flex: 1 1 135px; min-width: 0; }
 .sublisting-payment { margin: 3px 0 15px; color: var(--muted); font-size: 0.78rem; text-transform: capitalize; }
 .facts.compact { margin: 0 0 12px; }
 .facts.compact li { padding: 5px 9px; font-size: 0.76rem; }
@@ -323,9 +324,18 @@ h2 { font-size: 1.45rem; letter-spacing: -0.025em; }
 .booking-card p { color: var(--muted); }
 .booking-card small { display: block; margin-top: 16px; color: var(--muted); overflow-wrap: anywhere; }
 
-.price { display: flex; align-items: baseline; gap: 8px; color: var(--ink) !important; }
+.price, .sublisting-price, .card-price { display: flex; align-items: baseline; gap: 8px; color: var(--ink) !important; }
+.price-values { display: flex; align-items: baseline; flex-wrap: wrap; min-width: 0; gap: 7px; }
 .price strong { font-size: 1.65rem; }
-.price span { font-size: 0.78rem; text-transform: capitalize; }
+.price-period { font-size: 0.78rem; text-transform: capitalize; }
+.price del, .sublisting-price del, .card-price del { color: var(--muted); font-size: 0.78rem; font-weight: 600; }
+.price.discounted strong, .sublisting-price.discounted strong, .card-price.discounted strong { color: #16803c; }
+.discount-percentage { color: #16803c; font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
+.sublisting-price, .card-price { flex-direction: column; gap: 2px; }
+.sublisting-price .price-values { justify-content: flex-end; }
+.sublisting-price strong, .card-price strong { font-size: 0.91rem; }
+.sublisting-price .price-period, .card-price .price-period { color: var(--muted); font-size: 0.7rem; }
+.card-price { align-items: flex-start; min-width: 0; }
 
 .home-shell { width: min(1220px, calc(100% - 48px)); margin: 0 auto 90px; }
 .hero {

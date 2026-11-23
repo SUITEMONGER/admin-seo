@@ -6,6 +6,7 @@ const {
   listingImages,
   listingPath,
   listingPrice,
+  listingPriceDetails,
   mediaImages,
   subListingPath,
 } = require('./listing');
@@ -44,10 +45,8 @@ function absoluteUrl(publicBaseUrl, path) {
   return new URL(path, `${String(publicBaseUrl).replace(/\/+$/, '')}/`).toString();
 }
 
-function formatPrice(listing) {
-  const price = listingPrice(listing);
-  if (!price) return '';
-  const currency = listingCurrency(listing);
+function formatMoney(price, currency) {
+  if (!Number.isFinite(Number(price)) || Number(price) <= 0) return '';
   try {
     return new Intl.NumberFormat('en-NG', {
       style: 'currency',
@@ -57,6 +56,28 @@ function formatPrice(listing) {
   } catch {
     return `${currency} ${price.toLocaleString('en-NG')}`;
   }
+}
+
+function formatPrice(listing) {
+  const details = listingPriceDetails(listing);
+  return details ? formatMoney(details.effectivePrice, details.currency) : '';
+}
+
+function renderPrice(listing, className = 'price') {
+  const details = listingPriceDetails(listing);
+  if (!details) return '';
+  const currentPrice = formatMoney(details.effectivePrice, details.currency);
+  const originalPrice = details.hasDiscount
+    ? `<del>${escapeHtml(formatMoney(details.originalPrice, details.currency))}</del>`
+    : '';
+  const percentage = details.hasDiscount
+    ? `<span class="discount-percentage">${details.percentageOff}% off</span>`
+    : '';
+  const discountedClass = details.hasDiscount ? ' discounted' : '';
+  return `<div class="${escapeHtml(className)}${discountedClass}">
+    <span class="price-values">${originalPrice}<strong>${escapeHtml(currentPrice)}</strong>${percentage}</span>
+    ${details.paymentStyle ? `<span class="price-period">${escapeHtml(details.paymentStyle)}</span>` : ''}
+  </div>`;
 }
 
 function pluralFact(value, singular, plural = `${singular}s`) {
@@ -86,8 +107,9 @@ function listingDescription(listing) {
 function listingStructuredData(listing, canonicalUrl, images) {
   const address = listingAddress(listing);
   const location = Array.isArray(listing?.location) ? listing.location[0] : undefined;
-  const price = listingPrice(listing);
-  const currency = listingCurrency(listing);
+  const priceDetails = listingPriceDetails(listing);
+  const price = priceDetails?.effectivePrice || 0;
+  const currency = priceDetails?.currency || listingCurrency(listing);
   const amenities = Array.isArray(listing?.amenities) ? listing.amenities : [];
   const subListings = Array.isArray(listing?.sub_category) ? listing.sub_category : [];
   const subListingOffers = subListings
@@ -95,8 +117,8 @@ function listingStructuredData(listing, canonicalUrl, images) {
     .map((item) => ({
       '@type': 'Offer',
       name: item.name,
-      price: listingPrice(item),
-      priceCurrency: listingCurrency(item),
+      price: listingPriceDetails(item)?.effectivePrice || listingPrice(item),
+      priceCurrency: listingPriceDetails(item)?.currency || listingCurrency(item),
       url: canonicalUrl,
       itemOffered: {
         '@type': 'Room',
@@ -187,7 +209,7 @@ function renderDocument({
   <meta name="theme-color" content="#e7472e">
   <link rel="canonical" href="${escapeHtml(canonicalUrl)}">
   <link rel="icon" href="/brand/favicon.png" type="image/png">
-  <link rel="stylesheet" href="/styles.css?v=20260912-3">
+  <link rel="stylesheet" href="/styles.css?v=20261123-1">
   <meta property="og:site_name" content="SuiteMonger">
   <meta property="og:type" content="website">
   <meta property="og:title" content="${escapeHtml(title)}">
@@ -239,7 +261,6 @@ function renderSubListings(listing) {
 
   const cards = subListings.map((subListing) => {
     const facts = listingFacts(subListing);
-    const price = formatPrice(subListing);
     const optionPath = subListingPath(listing, subListing);
     const optionImages = mediaImages(subListing);
     const amenities = Array.isArray(subListing?.amenities)
@@ -256,7 +277,7 @@ function renderSubListings(listing) {
       <div class="sublisting-copy">
         <div class="sublisting-heading">
           <h3>${escapeHtml(subListing.name)}</h3>
-          ${price ? `<strong>${escapeHtml(price)}</strong>` : ''}
+          ${renderPrice(subListing, 'sublisting-price')}
         </div>
         ${subListing.payment_style ? `<p class="sublisting-payment">${escapeHtml(subListing.payment_style)}</p>` : ''}
         ${facts.length ? `<ul class="facts compact">${facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join('')}</ul>` : ''}
@@ -331,7 +352,6 @@ function renderListingPage(listing, publicBaseUrl, storeUrls = {}) {
   const images = listingImages(listing);
   const title = truncate(`${listing.property_title}${address ? ` in ${address}` : ''} | SuiteMonger`, 68);
   const description = listingDescription(listing) || `View ${listing.property_title} and book with SuiteMonger.`;
-  const price = formatPrice(listing);
   const facts = listingFacts(listing);
   const amenities = Array.isArray(listing?.amenities) ? listing.amenities.filter((item) => item?.name) : [];
   const rules = Array.isArray(listing?.house_rules) ? listing.house_rules.filter(Boolean) : [];
@@ -362,7 +382,7 @@ function renderListingPage(listing, publicBaseUrl, storeUrls = {}) {
         ${photoBrowser.previews}
       </div>
       <aside class="booking-card">
-        ${price ? `<p class="price"><strong>${escapeHtml(price)}</strong><span>${escapeHtml(listing.payment_style || '')}</span></p>` : ''}
+        ${renderPrice(listing)}
         <p>Check live availability and complete your booking securely in the SuiteMonger app.</p>
         ${renderStoreLink('Open in SuiteMonger', 'primary-cta', storeUrls, path)}
         <small>Listing reference: ${escapeHtml(listing.id)}</small>
@@ -392,7 +412,6 @@ function renderSubListingPage(listing, subListing, publicBaseUrl, storeUrls = {}
   };
   const title = truncate(`${displayName}${address ? ` in ${address}` : ''} | SuiteMonger`, 68);
   const description = listingDescription(detail) || `View ${displayName} and book with SuiteMonger.`;
-  const price = formatPrice(subListing);
   const facts = listingFacts(subListing);
   const amenities = Array.isArray(subListing?.amenities)
     ? subListing.amenities.filter((item) => item?.name)
@@ -422,7 +441,7 @@ function renderSubListingPage(listing, subListing, publicBaseUrl, storeUrls = {}
         <p class="back-to-listing"><a href="${escapeHtml(parentPath)}">&larr; View all options at ${escapeHtml(listing.property_title)}</a></p>
       </div>
       <aside class="booking-card">
-        ${price ? `<p class="price"><strong>${escapeHtml(price)}</strong><span>${escapeHtml(subListing.payment_style || '')}</span></p>` : ''}
+        ${renderPrice(subListing)}
         <p>Check live availability for this suite option and complete your booking in the SuiteMonger app.</p>
         ${renderStoreLink('Open in SuiteMonger', 'primary-cta', storeUrls, path)}
         <small>Suite option reference: ${escapeHtml(subListing.id)}</small>
@@ -514,7 +533,7 @@ function renderHomePage(listings, publicBaseUrl, pagination = {}, storeUrls = {}
           <h2>${escapeHtml(listing.property_title)}</h2>
           <p class="card-address">${escapeHtml(listingAddress(listing))}</p>
           <div class="card-footer">
-            <strong>${escapeHtml(formatPrice(listing) || 'View details')}</strong>
+            ${renderPrice(listing, 'card-price') || '<strong>View details</strong>'}
             <span class="card-action" aria-hidden="true">View suite &rarr;</span>
           </div>
         </div>

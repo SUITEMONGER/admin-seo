@@ -8,8 +8,10 @@ const vm = require('node:vm');
 
 const { createServer } = require('../server');
 const {
+  activeDiscount,
   extractListingId,
   extractSubListingId,
+  listingPriceDetails,
   listingPath,
   subListingPath,
 } = require('../src/listing');
@@ -61,10 +63,40 @@ const listing = {
     amenities: [{ name: 'Air conditioning' }],
     cover_image: { url: 'https://images.example.com/executive-room.jpg' },
     images: [{ url: 'https://images.example.com/executive-bathroom.jpg' }],
+    active_discount: {
+      id: 'discount-1',
+      active: true,
+      original_price: 85000,
+      new_price: 68000,
+      start_at: '2020-01-01T00:00:00Z',
+      end_at: '2099-01-01T00:00:00Z',
+      bookings_used: 0,
+    },
   }],
   approved_at: '2026-09-12T09:00:00Z',
   updated_at: '2026-09-12T10:00:00Z',
 };
+
+test('active listing price uses the lowest valid discounted price', () => {
+  assert.deepEqual(listingPriceDetails(listing, Date.parse('2026-11-23T12:00:00Z')), {
+    originalPrice: 85000,
+    effectivePrice: 68000,
+    percentageOff: 20,
+    hasDiscount: true,
+    currency: 'NGN',
+    paymentStyle: 'per night',
+  });
+
+  const exhausted = {
+    ...listing.sub_category[0],
+    active_discount: {
+      ...listing.sub_category[0].active_discount,
+      max_bookings: 2,
+      bookings_used: 2,
+    },
+  };
+  assert.equal(activeDiscount(exhausted, Date.parse('2026-11-23T12:00:00Z')), null);
+});
 
 test('canonical listing URL contains category, property name, address and immutable ID', () => {
   const path = listingPath(listing);
@@ -101,6 +133,8 @@ test('listing page renders crawlable metadata and safely escapes listing content
   assert.match(html, /data-sublisting-section/);
   assert.match(html, /data-sublisting-list/);
   assert.match(html, /options\/executive-room--room-1/);
+  assert.match(html, /<del>.*85,000<\/del>/);
+  assert.match(html, />.*68,000<\/strong><span class="discount-percentage">20% off<\/span>/);
   assert.match(html, /All photos/);
   assert.match(html, /data-open-app-path="\/suites\//);
   assert.match(html, /id="gallery-data"/);
@@ -135,6 +169,8 @@ test('sublisting page has its own canonical URL and links back to its parent lis
   assert.match(html, new RegExp(`href="${listingPath(listing)}`));
   assert.match(html, /Executive Room at Luxury Two Bedroom Suite/);
   assert.match(html, /data-gallery-dialog/);
+  assert.match(html, /class="price discounted"/);
+  assert.match(html, /20% off/);
   assert.doesNotMatch(html, /Available suite options/);
 });
 
@@ -343,7 +379,7 @@ test('root serves the landing page and its assets', async () => {
   assert.match(html, /Find your space\./);
   assert.match(html, /id="listing-rail"/);
   assert.match(html, /href="\/suites"/);
-  assert.match(html, /href="\/landing\/styles\.css"/);
+  assert.match(html, /href="\/landing\/styles\.css\?v=20261123-1"/);
   assert.match(html, /href="\/about">About us/);
   assert.match(html, /src="\/landing\/assets\/apple\.png"/);
   assert.equal((html.match(/<details class="faq-item">/g) || []).length, 6);
@@ -406,6 +442,9 @@ test('landing search proxies public categories and returns six-card listing data
   assert.equal(body.items.length, 1);
   assert.equal(body.items[0].title, listing.property_title);
   assert.equal(body.items[0].path, listingPath(listing));
+  assert.equal(body.items[0].price, 85000);
+  assert.equal(body.items[0].discountedPrice, 68000);
+  assert.equal(body.items[0].discountPercentage, 20);
   assert.equal(body.filters.guests, '2');
 });
 
@@ -444,6 +483,8 @@ test('view-all suites route applies and preserves the landing category filter', 
 
   assert.equal(response.status, 200);
   assert.match(html, /Luxury Two Bedroom Suite/);
+  assert.match(html, /class="card-price discounted"/);
+  assert.match(html, /20% off/);
   assert.match(html, /canonical" href="http:\/\/127\.0\.0\.1\/suites\?category=serviced-apartment&amp;guests=2"/);
 });
 

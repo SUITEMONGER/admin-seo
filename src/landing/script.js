@@ -272,9 +272,24 @@ function createListingCard(listing, filters, index) {
   facts.textContent = listingFacts(listing);
   const price = document.createElement('p');
   price.className = 'listing-card__price';
-  const priceStrong = document.createElement('strong');
-  priceStrong.textContent = currencyLabel(listing.price, listing.currency);
-  price.append(priceStrong, document.createTextNode(listing.price ? `/${String(listing.paymentStyle || 'night').replace(/^per\s+/i, '')}` : ''));
+  const period = listing.price ? `/${String(listing.paymentStyle || 'night').replace(/^per\s+/i, '')}` : '';
+  if (listing.discountedPrice > 0 && listing.discountedPrice < listing.price) {
+    const originalPrice = document.createElement('del');
+    originalPrice.textContent = currencyLabel(listing.price, listing.currency);
+    const discountRow = document.createElement('span');
+    discountRow.className = 'listing-card__discount-row';
+    const priceStrong = document.createElement('strong');
+    priceStrong.textContent = currencyLabel(listing.discountedPrice, listing.currency);
+    const percentage = document.createElement('span');
+    percentage.className = 'listing-card__discount-percentage';
+    percentage.textContent = `${listing.discountPercentage}% off`;
+    discountRow.append(priceStrong, percentage);
+    price.append(originalPrice, discountRow, document.createTextNode(period));
+  } else {
+    const priceStrong = document.createElement('strong');
+    priceStrong.textContent = currencyLabel(listing.price, listing.currency);
+    price.append(priceStrong, document.createTextNode(period));
+  }
   copy.append(titleRow, address, facts, price);
   link.append(media, copy);
   article.append(link);

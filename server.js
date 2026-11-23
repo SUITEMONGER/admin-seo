@@ -21,6 +21,7 @@ const {
   listingImages,
   listingPath,
   listingPrice,
+  listingPriceDetails,
   subListingPath,
 } = require('./src/listing');
 const {
@@ -122,6 +123,7 @@ function landingListing(listing) {
   const amenities = Array.isArray(listing?.amenities) && listing.amenities.length
     ? listing.amenities
     : (Array.isArray(firstSubListing.amenities) ? firstSubListing.amenities : []);
+  const priceDetails = listingPriceDetails(listing);
   return {
     id: String(listing?.id || ''),
     title: String(listing?.property_title || 'SuiteMonger stay'),
@@ -129,9 +131,11 @@ function landingListing(listing) {
     address: listingAddress(listing),
     image: listingImages(listing)[0] || '',
     path: listingPath(listing),
-    price: listingPrice(listing),
-    currency: listingCurrency(listing),
-    paymentStyle: String(listing?.payment_style || firstSubListing.payment_style || 'per night'),
+    price: priceDetails?.originalPrice || listingPrice(listing),
+    discountedPrice: priceDetails?.hasDiscount ? priceDetails.effectivePrice : 0,
+    discountPercentage: priceDetails?.percentageOff || 0,
+    currency: priceDetails?.currency || listingCurrency(listing),
+    paymentStyle: priceDetails?.paymentStyle || String(listing?.payment_style || firstSubListing.payment_style || 'per night'),
     rooms: Number(listing?.number_of_rooms || firstSubListing.number_of_rooms) || 0,
     bedrooms: Number(listing?.number_of_bedrooms || firstSubListing.number_of_bedrooms) || 0,
     amenities: amenities.slice(0, 2).map((amenity) => String(amenity?.name || '')).filter(Boolean),

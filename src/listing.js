@@ -97,6 +97,62 @@ function listingPrice(listing) {
   return prices.length ? Math.min(...prices) : 0;
 }
 
+function activeDiscount(item, now = Date.now()) {
+  const discount = item?.active_discount;
+  if (!discount || discount.active === false) return null;
+
+  const originalPrice = Number(discount.original_price);
+  const newPrice = Number(discount.new_price);
+  if (!Number.isFinite(originalPrice) || !Number.isFinite(newPrice)
+      || originalPrice <= 0 || newPrice <= 0 || newPrice >= originalPrice) {
+    return null;
+  }
+
+  const startsAt = Date.parse(discount.start_at);
+  const endsAt = Date.parse(discount.end_at);
+  if ((Number.isFinite(startsAt) && startsAt > now)
+      || (Number.isFinite(endsAt) && endsAt <= now)) {
+    return null;
+  }
+
+  const maxBookings = Number(discount.max_bookings);
+  const bookingsUsed = Number(discount.bookings_used) || 0;
+  if (Number.isFinite(maxBookings) && maxBookings > 0 && bookingsUsed >= maxBookings) {
+    return null;
+  }
+
+  return {
+    originalPrice,
+    newPrice,
+    percentageOff: Math.round(((originalPrice - newPrice) / originalPrice) * 100),
+  };
+}
+
+function listingPriceDetails(listing, now = Date.now()) {
+  const candidates = [
+    listing,
+    ...(Array.isArray(listing?.sub_category) ? listing.sub_category : []),
+  ]
+    .map((item) => {
+      const price = Number(item?.price);
+      if (!Number.isFinite(price) || price <= 0) return null;
+      const discount = activeDiscount(item, now);
+      return {
+        originalPrice: discount?.originalPrice || price,
+        effectivePrice: discount?.newPrice || price,
+        percentageOff: discount?.percentageOff || 0,
+        hasDiscount: Boolean(discount),
+        currency: String(item?.currency || listing?.currency || 'NGN').trim().toUpperCase(),
+        paymentStyle: String(item?.payment_style || listing?.payment_style || '').trim(),
+      };
+    })
+    .filter(Boolean);
+
+  if (!candidates.length) return null;
+  return candidates.reduce((lowest, candidate) =>
+    candidate.effectivePrice < lowest.effectivePrice ? candidate : lowest);
+}
+
 function listingCurrency(listing) {
   const subCategory = Array.isArray(listing?.sub_category)
     ? listing.sub_category.find((item) => item?.currency)
@@ -105,6 +161,7 @@ function listingCurrency(listing) {
 }
 
 module.exports = {
+  activeDiscount,
   extractListingId,
   extractSubListingId,
   listingAddress,
@@ -113,6 +170,7 @@ module.exports = {
   listingImages,
   listingPath,
   listingPrice,
+  listingPriceDetails,
   mediaImages,
   slugify,
   subListingPath,
