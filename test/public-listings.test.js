@@ -379,7 +379,7 @@ test('root serves the landing page and its assets', async () => {
   assert.match(html, /Find your space\./);
   assert.match(html, /id="listing-rail"/);
   assert.match(html, /href="\/suites"/);
-  assert.match(html, /href="\/landing\/styles\.css\?v=20261123-1"/);
+  assert.match(html, /href="\/landing\/styles\.css\?v=20261124-1"/);
   assert.match(html, /href="\/about">About us/);
   assert.match(html, /src="\/landing\/assets\/apple\.png"/);
   assert.equal((html.match(/<details class="faq-item">/g) || []).length, 6);

@@ -10,16 +10,21 @@
   --shadow: 0 24px 70px rgba(25, 31, 37, 0.15);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
+  min-width: 0;
   max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  width: 100%;
 }
 
 body {
@@ -27,8 +32,30 @@ body {
   color: var(--ink);
   font-family: "DM Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
+  min-width: 0;
   max-width: 100%;
   overflow-x: hidden;
+  width: 100%;
+}
+
+main {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+@supports (overflow: clip) {
+  html,
+  body,
+  main {
+    overflow-x: clip;
+  }
+}
+
+main > * {
+  max-width: 100%;
+  min-width: 0;
 }
 
 body.menu-open {
@@ -832,6 +859,16 @@ img {
   grid-template-columns: minmax(380px, 0.92fr) minmax(420px, 1.08fr);
   margin: 0 auto;
   max-width: 1160px;
+}
+
+.marketplace__inner > *,
+.services > *,
+.partner-paths > *,
+.trust__top > *,
+.download-panel > *,
+.faq > *,
+.site-footer__main > * {
+  min-width: 0;
 }
 
 .market-collage {
@@ -2074,6 +2111,8 @@ img {
   }
 
   .proof-strip span {
+    min-width: 0;
+    overflow-wrap: anywhere;
     text-align: center;
   }
 
@@ -2276,8 +2315,10 @@ img {
   .listing-rail {
     gap: 12px;
     grid-auto-columns: calc((100% - 12px) / 2);
-    margin-inline: -4px;
-    padding-inline: 4px;
+    margin-inline: 0;
+    max-width: 100%;
+    padding-inline: 0;
+    width: 100%;
   }
 
   .listing-card__media {
